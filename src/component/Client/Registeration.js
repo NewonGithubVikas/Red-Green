@@ -49,7 +49,7 @@ export default function Registration() {
     }
 
     try {
-      const response = await fetch("http://localhost:4500/user/signup", {
+      const response = await fetch("https://back-5es4.onrender.com/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
