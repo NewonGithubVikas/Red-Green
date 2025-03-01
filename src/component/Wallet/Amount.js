@@ -23,7 +23,7 @@ export default function Amount() {
     const fetchWalletBalance = async () => {
       setLoading(true); // Start loading
       try {
-        const response = await fetch("http://localhost:4500/wallet/balance", {
+        const response = await fetch("https://back-5es4.onrender.com/wallet/balance", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
