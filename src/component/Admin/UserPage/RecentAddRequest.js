@@ -9,7 +9,7 @@ const RecentAddRequest = () => {
     const fetchLatestTransactions = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:4500/admin/check-add-request");
+        const response = await fetch("https://back-5es4.onrender.com/admin/check-add-request");
         const data = await response.json();
         console.log("API Response:", data);
 
@@ -32,7 +32,7 @@ const RecentAddRequest = () => {
 
   const handleAddMoney = async (userId, amount) => {
     try {
-      const response = await fetch("http://localhost:4500/wallet/addbalance", {
+      const response = await fetch("https://back-5es4.onrender.com/wallet/addbalance", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
