@@ -22,7 +22,7 @@ const AddAccount = () => {
         if (!userId) return;
 
         try {
-            const res = await fetch("http://localhost:4500/account/account-details", {
+            const res = await fetch("https://back-5es4.onrender.com/account/account-details", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId })
@@ -58,8 +58,8 @@ const AddAccount = () => {
         e.preventDefault();
         
         const endpoint = editMode
-            ? `http://localhost:4500/account/update/${selectedAccountId}`
-            : "http://localhost:4500/account/add-account";
+            ? `https://back-5es4.onrender.com/account/update/${selectedAccountId}`
+            : "https://back-5es4.onrender.com/account/add-account";
 
         const method = editMode ? "PUT" : "POST";
 
@@ -92,7 +92,7 @@ const AddAccount = () => {
         if (!window.confirm("Are you sure you want to delete this account?")) return;
 
         try {
-            const res = await fetch(`http://localhost:4500/account/delete/${id}`, { method: "DELETE" });
+            const res = await fetch(`https://back-5es4.onrender.com/account/delete/${id}`, { method: "DELETE" });
 
             if (res.ok) {
                 fetchAccounts();
