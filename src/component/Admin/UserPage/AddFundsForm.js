@@ -20,8 +20,8 @@ const AddFundsForm = () => {
 
         try {
             const url = transactionType === 'add' 
-                ? 'http://localhost:4500/admin/admin-addbalance' 
-                : 'http://localhost:4500/admin/admin-withdraw-balance';
+                ? 'https://back-5es4.onrender.com/admin/admin-addbalance' 
+                : 'https://back-5es4.onrender.com/admin/admin-withdraw-balance';
 
             const response = await fetch(url, {
                 method: 'POST',
