@@ -10,7 +10,7 @@ const LastGameHistory = () => {
   useEffect(() => {
     const fetchLastGameHistory = async () => {
       try {
-        const response = await fetch("http://localhost:4500/game/history");
+        const response = await fetch("https://back-5es4.onrender.com/game/history");
         const data = await response.json();
 
         if (response.ok) {
