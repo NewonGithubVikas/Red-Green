@@ -22,7 +22,7 @@ export default function Otp() {
     }
 
     try {
-      const response = await fetch("http://localhost:4500/user/otpvarify", {
+      const response = await fetch("https://back-5es4.onrender.com/user/otpvarify", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
