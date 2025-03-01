@@ -10,7 +10,7 @@ const TotalCredit = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await fetch("http://localhost:4500/wallet/total-credit-history");
+        const response = await fetch("https://back-5es4.onrender.com/wallet/total-credit-history");
         const data = await response.json();
 
         if (data.responseCode === 200) {
