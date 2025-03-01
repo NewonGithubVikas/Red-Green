@@ -15,7 +15,7 @@ export default function Game() {
   useEffect(() => {
     async function fetchTime() {
       try {
-        const response = await fetch("http://localhost:4500/game/timer");
+        const response = await fetch("https://back-5es4.onrender.com/game/timer");
         if (response.ok) {
           const data = await response.json();
           if (data && data.remainTime) {
