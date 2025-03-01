@@ -26,7 +26,7 @@ export default function PlaceBet({ isOpen, onClose, selectedColor, onConfirm }) 
   const placeBet = async () => {
     try {
       // Sending the POST request
-      const response = await fetch("http://localhost:4500/game/bet", {
+      const response = await fetch("https://back-5es4.onrender.com/game/bet", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
