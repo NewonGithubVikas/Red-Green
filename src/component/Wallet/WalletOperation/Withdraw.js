@@ -9,7 +9,7 @@ const Withdraw = () => {
     const handleWithdraw = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:4500/wallet/withdraw-balance", {
+            const response = await fetch("https://back-5es4.onrender.com/wallet/withdraw-balance", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ const Withdraw = () => {
             }
 
             // Additional API call to /user/withdraw-request
-            await fetch("http://localhost:4500/user/withdraw-request", {
+            await fetch("https://back-5es4.onrender.com/user/withdraw-request", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
