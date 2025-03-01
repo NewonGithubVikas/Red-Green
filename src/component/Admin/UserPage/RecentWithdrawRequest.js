@@ -10,7 +10,7 @@ const RecentWithdrawRequest = () => {
   const fetchLatestTransactions = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4500/admin/check-withdraw-request");
+      const response = await fetch("https://back-5es4.onrender.com/admin/check-withdraw-request");
       const data = await response.json();
       console.log("API Response:", data);
 
@@ -32,7 +32,7 @@ const RecentWithdrawRequest = () => {
 
   const handleApprove = async (amount, userId) => {
     try {
-      const response = await fetch("http://localhost:4500/admin/status-withdraw-change", {
+      const response = await fetch("https://back-5es4.onrender.com/admin/status-withdraw-change", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const RecentWithdrawRequest = () => {
 
   const fetchAccountDetails = async (userId) => {
     try {
-      const res = await fetch("http://localhost:4500/account/account-details", {
+      const res = await fetch("https://back-5es4.onrender.com/account/account-details", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
