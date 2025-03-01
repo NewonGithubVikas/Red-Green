@@ -14,7 +14,7 @@ const DashboardChart = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await fetch("http://localhost:4500/admin/dashboard-stats");
+        const response = await fetch("https://back-5es4.onrender.com/admin/dashboard-stats");
         const data = await response.json();
         console.log(data);
         setDashboardData({
