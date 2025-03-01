@@ -15,8 +15,8 @@ const History = () => {
       try {
         const apiEndpoint =
           show === "Withdraw"
-            ? "http://localhost:4500/wallet/withdraw-history"
-            : "http://localhost:4500/wallet/credit-history";
+            ? "https://back-5es4.onrender.com/wallet/withdraw-history"
+            : "https://back-5es4.onrender.com/wallet/credit-history";
 
         const response = await fetch(apiEndpoint, {
           method: "POST",
