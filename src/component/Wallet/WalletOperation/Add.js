@@ -7,7 +7,7 @@ const Add = () => {
     const {userId} = useContext(AuthContext);
     const addMoney = async () => {
         try {
-            const response = await fetch('http://localhost:4500/user/add-request', {
+            const response = await fetch('https://back-5es4.onrender.com/user/add-request', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
