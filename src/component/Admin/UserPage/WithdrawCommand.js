@@ -1,17 +1,45 @@
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 
 const WithdrawCommand 
 = () => {
+=======
+import { useNavigate } from "react-router-dom";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const WithdrawCommand = () => {
+>>>>>>> c361654 (updated feature Number Game and other thing)
   const [transactions, setTransactions] = useState([]); // List of today's transactions
   const [totalMoney, setTotalMoney] = useState(0); // Total money credited today
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+<<<<<<< HEAD
+=======
+  const navigate = useNavigate();
+>>>>>>> c361654 (updated feature Number Game and other thing)
 
   // Fetch total credit history from API
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
+<<<<<<< HEAD
         const response = await fetch("https://back-5es4.onrender.com/wallet/total-withdraw-history");
+=======
+        const token = localStorage.getItem("token"); // Retrieve token
+        if (!token) {
+          console.error("No token found");
+          navigate("/login"); // Redirect if no token is found
+          return;
+        }
+
+        const response = await fetch(`${API_BASE_URL}/wallet/total-withdraw-history`, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+>>>>>>> c361654 (updated feature Number Game and other thing)
         const data = await response.json();
 
         if (data.responseCode === 200) {
@@ -28,7 +56,11 @@ const WithdrawCommand
     };
 
     fetchTransactions();
+<<<<<<< HEAD
   }, []);
+=======
+  }, [navigate]); // ✅ Included 'navigate' to fix the warning
+>>>>>>> c361654 (updated feature Number Game and other thing)
 
   return (
     <div className="container my-5">

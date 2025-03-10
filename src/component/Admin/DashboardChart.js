@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from "chart.js";
+<<<<<<< HEAD
 
+=======
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+>>>>>>> c361654 (updated feature Number Game and other thing)
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
 const DashboardChart = () => {
@@ -14,7 +18,11 @@ const DashboardChart = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
+<<<<<<< HEAD
         const response = await fetch("https://back-5es4.onrender.com/admin/dashboard-stats");
+=======
+        const response = await fetch(`${API_BASE_URL}/admin/dashboard-stats`);
+>>>>>>> c361654 (updated feature Number Game and other thing)
         const data = await response.json();
         console.log(data);
         setDashboardData({

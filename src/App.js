@@ -18,14 +18,27 @@ import ClientOutlet from './component/Client/ClientOutlet';
 import AddFundsForm from './component/Admin/UserPage/AddFundsForm';
 import TotalCredit from './component/Admin/UserPage/TotalCredit';
 import WithdrawCommand from './component/Admin/UserPage/WithdrawCommand';
+<<<<<<< HEAD
+=======
+import Login from './component/Admin/AdminLogin/Login';
+>>>>>>> c361654 (updated feature Number Game and other thing)
 import RecentAddRequest from './component/Admin/UserPage/RecentAddRequest';
 import RecentWithdrawRequest from './component/Admin/UserPage/RecentWithdrawRequest';
 import Settings from './component/Client/Setting/Settings';
 import AddAccount from './component/Client/Setting/Account/AddAccount';
+<<<<<<< HEAD
 import AccountDetails from './component/Client/Setting/Account/AccountDetails';
 import ReferEarn from './component/Client/Setting/SettingComponent/ReferEarn';
 import CustomerSupport from './component/Client/Setting/SettingComponent/CustomerSupport';
 
+=======
+// import AccountDetails from './component/Client/Setting/Account/AccountDetails';
+import ReferEarn from './component/Client/Setting/SettingComponent/ReferEarn';
+import CustomerSupport from './component/Client/Setting/SettingComponent/CustomerSupport';
+
+import UpdatePassword from './component/Client/Setting/SettingComponent/UpdatePassword';
+
+>>>>>>> c361654 (updated feature Number Game and other thing)
 function App() {
   return (
     <AuthProvider>
@@ -45,13 +58,25 @@ function App() {
             <Route path="/pp" element={<PrivacyPolicy />} />
             <Route path="/settings" element={<Settings/>} />
             <Route path="/add-account" element={<AddAccount/>} />
+<<<<<<< HEAD
             <Route path="/watch-account" element={<AccountDetails/>} />
             <Route path="/refer-earn" element={<ReferEarn/>} />
             <Route path="/customer-support" element={<CustomerSupport/>} />
+=======
+            {/* <Route path="/watch-account" element={<AccountDetails/>} /> */}
+            <Route path="/refer-earn" element={<ReferEarn/>} />
+            <Route path="/customer-support" element={<CustomerSupport/>} />
+          
+            <Route path="/update-password" element={<UpdatePassword/>} />
+>>>>>>> c361654 (updated feature Number Game and other thing)
           </Route>
 
           {/* Admin Routes without Navbar */}
           <Route element={<AdminOutlet/>}>
+<<<<<<< HEAD
+=======
+            <Route path="/login" element={<Login />} />
+>>>>>>> c361654 (updated feature Number Game and other thing)
             <Route path="/admin" element={<AdDashboard />} />
             <Route path="/user-status" element={<UserStatus />} />
             <Route path="/add-fund" element={<AddFundsForm/>} />

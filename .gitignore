@@ -12,8 +12,13 @@
 /build
 
 # misc
+<<<<<<< HEAD
 .DS_Store
 .env.local
+=======
+.env.local
+.env
+>>>>>>> c361654 (updated feature Number Game and other thing)
 .env.development.local
 .env.test.local
 .env.production.local

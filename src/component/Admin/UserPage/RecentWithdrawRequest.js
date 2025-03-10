@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
+=======
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+>>>>>>> c361654 (updated feature Number Game and other thing)
 
 const RecentWithdrawRequest = () => {
   const [latestTransactions, setLatestTransactions] = useState([]);
@@ -6,6 +13,7 @@ const RecentWithdrawRequest = () => {
   const [error, setError] = useState(null);
   const [accountDetails, setAccountDetails] = useState(null);
   const [showModal, setShowModal] = useState(false);
+<<<<<<< HEAD
 
   const fetchLatestTransactions = async () => {
     setLoading(true);
@@ -36,6 +44,61 @@ const RecentWithdrawRequest = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+=======
+  const navigate = useNavigate();
+
+  const getToken = () => localStorage.getItem("token");
+
+  // Fetch latest withdraw requests
+  const fetchLatestTransactions = useCallback(async () => {
+    setLoading(true);
+    const token = getToken();
+
+    if (!token) {
+      alert("Unauthorized! Please log in.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/admin/check-withdraw-request`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch transactions");
+      }
+
+      const data = await response.json();
+      console.log("API Response:", data);
+      setLatestTransactions(Array.isArray(data.transactions) ? data.transactions : []);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [navigate]);
+
+  // Approve withdraw request
+  const handleApprove = useCallback(async (amount, userId) => {
+    const token = getToken();
+
+    if (!token) {
+      alert("Unauthorized! Please log in.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/admin/status-withdraw-change`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+>>>>>>> c361654 (updated feature Number Game and other thing)
         },
         body: JSON.stringify({ id: userId, amount: amount }),
       });
@@ -44,11 +107,16 @@ const RecentWithdrawRequest = () => {
       alert(result.message);
 
       if (response.ok) {
+<<<<<<< HEAD
         fetchLatestTransactions();
+=======
+        fetchLatestTransactions(); // Refresh transactions after approval
+>>>>>>> c361654 (updated feature Number Game and other thing)
       }
     } catch (error) {
       alert("Failed to update status");
     }
+<<<<<<< HEAD
   };
 
   const fetchAccountDetails = async (userId) => {
@@ -58,13 +126,51 @@ const RecentWithdrawRequest = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
       });
+=======
+  }, [navigate, fetchLatestTransactions]);
+
+  // Fetch account details
+  const fetchAccountDetails = useCallback(async (userId) => {
+    const token = getToken();
+
+    if (!token) {
+      alert("Unauthorized! Please log in.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/account/account-details`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ userId }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch account details");
+      }
+
+>>>>>>> c361654 (updated feature Number Game and other thing)
       const data = await res.json();
       setAccountDetails(data.data[0]);
       setShowModal(true);
     } catch (error) {
+<<<<<<< HEAD
       alert("Failed to fetch account details");
     }
   };
+=======
+      alert(error.message);
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    fetchLatestTransactions();
+  }, [fetchLatestTransactions]);
+>>>>>>> c361654 (updated feature Number Game and other thing)
 
   return (
     <div className="container mt-4">

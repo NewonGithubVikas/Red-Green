@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+<<<<<<< HEAD
 
+=======
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+>>>>>>> c361654 (updated feature Number Game and other thing)
 const AddFundsForm = () => {
     const [balance, setBalance] = useState('');
     const [message, setMessage] = useState('');
@@ -19,6 +23,7 @@ const AddFundsForm = () => {
         }
 
         try {
+<<<<<<< HEAD
             const url = transactionType === 'add' 
                 ? 'https://back-5es4.onrender.com/admin/admin-addbalance' 
                 : 'https://back-5es4.onrender.com/admin/admin-withdraw-balance';
@@ -26,6 +31,24 @@ const AddFundsForm = () => {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+=======
+            const token = localStorage.getItem("token"); // Retrieve token from localStorage
+            if (!token) {
+                setMessage("Unauthorized: No token provided.");
+                return;
+            }
+
+            const url = transactionType === 'add' 
+                ? `${API_BASE_URL}/admin/admin-addbalance` 
+                : `${API_BASE_URL}/admin/admin-withdraw-balance`;
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Add token to headers
+                },
+>>>>>>> c361654 (updated feature Number Game and other thing)
                 body: JSON.stringify({ balance: balance, id: userId }),
             });
 
@@ -35,6 +58,10 @@ const AddFundsForm = () => {
                 setMessage(`Successfully ${transactionType === 'add' ? 'added' : 'withdrawn'} $${balance}. Updated balance: $${result.UpdatedBalance}`);
                 alert(`Successfully ${transactionType === 'add' ? 'added' : 'withdrawn'} $${balance}. Updated balance: $${result.UpdatedBalance}`);
                 setBalance('');
+<<<<<<< HEAD
+=======
+                setUserId('');
+>>>>>>> c361654 (updated feature Number Game and other thing)
             } else {
                 setMessage(result.message || `Error occurred while ${transactionType === 'add' ? 'adding' : 'withdrawing'} money.`);
             }

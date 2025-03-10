@@ -19,6 +19,13 @@ const Settings = () => {
           <FaGift className="me-3 text-warning" size={24} /> 
           <span className="fs-5">Refer & Earn</span>
         </Link>
+<<<<<<< HEAD
+=======
+        <Link to="/update-password" className="list-group-item list-group-item-action d-flex align-items-center py-3">
+          <FaLock className="me-3 text-secondary" size={24} /> 
+          <span className="fs-5">Password Reset</span>
+        </Link>
+>>>>>>> c361654 (updated feature Number Game and other thing)
         <Link to="/customer-support" className="list-group-item list-group-item-action d-flex align-items-center py-3">
           <FaHeadset className="me-3 text-info" size={24} /> 
           <span className="fs-5">Customer Support</span>
