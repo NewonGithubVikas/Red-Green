@@ -1,43 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../../Context/AuthContext';
-<<<<<<< HEAD
-
-const Withdraw = () => {
-    const [balance, setBalance] = useState(0); // Example initial wallet balance
-    const [message, setMessage] = useState('');
-    const { userId } = useContext(AuthContext);
-    
-    const handleWithdraw = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch("https://back-5es4.onrender.com/wallet/withdraw-balance", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ balance: balance, id: userId }),
-            });
-            const result = await response.json(); // Parse JSON response
-            console.log("response", result);
-            
-            if (response.ok) {
-                setMessage(`Successfully withdrew $${balance} from your wallet. Updated balance: $${result.UpdatedBalance}`);
-                alert(`Successfully withdrew $${balance} from your wallet. Updated balance: $${result.UpdatedBalance}`);
-                setBalance(''); // Reset the amount input
-            } else {
-                console.error('Failed to withdraw money:', result);
-                alert(result.message || 'There was an error withdrawing money from your wallet.');
-            }
-
-            // Additional API call to /user/withdraw-request
-            await fetch("https://back-5es4.onrender.com/user/withdraw-request", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ amount: balance, userId: userId }),
-            });
-=======
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const Withdraw = () => {
     const [balance, setBalance] = useState('');
@@ -88,7 +50,6 @@ const Withdraw = () => {
                 body: JSON.stringify({ amount: withdrawAmount, userId: userId }),
             });
 
->>>>>>> c361654 (updated feature Number Game and other thing)
         } catch (error) {
             console.error('There was an error:', error);
             alert('An error occurred while withdrawing money. Please try again later.');
@@ -105,11 +66,7 @@ const Withdraw = () => {
                         </div>
                         <div className="card-body">
                             <h5 className="text-center mb-4">
-<<<<<<< HEAD
-                                Current Balance: <strong>${balance}</strong>
-=======
                                 Current Balance: <strong>${walletBalance}</strong>
->>>>>>> c361654 (updated feature Number Game and other thing)
                             </h5>
                             <form onSubmit={handleWithdraw}>
                                 <div className="mb-3">
@@ -123,10 +80,7 @@ const Withdraw = () => {
                                         placeholder="Enter amount to withdraw"
                                         value={balance}
                                         onChange={(e) => setBalance(e.target.value)}
-<<<<<<< HEAD
-=======
                                         min="1"
->>>>>>> c361654 (updated feature Number Game and other thing)
                                     />
                                 </div>
                                 <button type="submit" className="btn btn-danger w-100">
@@ -136,11 +90,7 @@ const Withdraw = () => {
                         </div>
                         {message && (
                             <div className="card-footer text-center">
-<<<<<<< HEAD
-                                <p className={message === 'Insufficient balance.' ? 'text-danger' : 'text-success'}>
-=======
                                 <p className={message.includes('Insufficient') ? 'text-danger' : 'text-success'}>
->>>>>>> c361654 (updated feature Number Game and other thing)
                                     {message}
                                 </p>
                             </div>

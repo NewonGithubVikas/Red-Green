@@ -1,42 +1,14 @@
 import React, { useEffect, useState } from "react";
-<<<<<<< HEAD
-
-const LastGameHistory = () => {
-=======
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const LastGameHistory = ({ currTime }) => {
   // console.log("Current time:", currTime);
->>>>>>> c361654 (updated feature Number Game and other thing)
   const [history, setHistory] = useState([]); // Complete history fetched from the API
   const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const itemsPerPage = 5; // Number of transactions per page
 
-<<<<<<< HEAD
-  useEffect(() => {
-    const fetchLastGameHistory = async () => {
-      try {
-        const response = await fetch("https://back-5es4.onrender.com/game/history");
-        const data = await response.json();
-
-        if (response.ok) {
-          setHistory(data.result || []);
-        } else {
-          setError(data.responseMessage || "Failed to fetch history.");
-        }
-      } catch (err) {
-        setError("An error occurred while fetching history.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchLastGameHistory();
-  }, []);
-
-=======
   const fetchLastGameHistory = async () => {
     const token = localStorage.getItem("token"); // Get token from local storage
     setIsLoading(true);
@@ -81,7 +53,6 @@ const LastGameHistory = ({ currTime }) => {
     }
   }, [currTime]);
 
->>>>>>> c361654 (updated feature Number Game and other thing)
   // Calculate the current page's data
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = history.slice(startIndex, startIndex + itemsPerPage);
@@ -115,10 +86,7 @@ const LastGameHistory = ({ currTime }) => {
         <thead className="thead-dark">
           <tr>
             <th>Winner Color</th>
-<<<<<<< HEAD
-=======
             <th>Winner Number</th>
->>>>>>> c361654 (updated feature Number Game and other thing)
             <th>Total Bet (₹)</th>
           </tr>
         </thead>
@@ -138,10 +106,7 @@ const LastGameHistory = ({ currTime }) => {
                   title={game.winnerColor}
                 ></span>
               </td>
-<<<<<<< HEAD
-=======
               <td>{game.winnerNumber || "N/A"}</td>
->>>>>>> c361654 (updated feature Number Game and other thing)
               <td>₹{(game.totalAmount.toFixed(2) * 10).toLocaleString()}</td>
             </tr>
           ))}

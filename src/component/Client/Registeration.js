@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-=======
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
->>>>>>> c361654 (updated feature Number Game and other thing)
 export default function Registration() {
   const [formData, setFormData] = useState({
     mobile: "",
@@ -53,11 +50,7 @@ export default function Registration() {
     }
 
     try {
-<<<<<<< HEAD
-      const response = await fetch("https://back-5es4.onrender.com/user/signup", {
-=======
       const response = await fetch(`${API_BASE_URL}/user/signup`, {
->>>>>>> c361654 (updated feature Number Game and other thing)
         method: "POST",
         headers: {
           "Content-Type": "application/json",

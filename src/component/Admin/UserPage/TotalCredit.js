@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
-
-=======
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
->>>>>>> c361654 (updated feature Number Game and other thing)
 const TotalCredit = () => {
   const [transactions, setTransactions] = useState([]); // List of today's transactions
   const [totalMoney, setTotalMoney] = useState(0); // Total money credited today
@@ -14,9 +10,6 @@ const TotalCredit = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-<<<<<<< HEAD
-        const response = await fetch("https://back-5es4.onrender.com/wallet/total-credit-history");
-=======
         const token = localStorage.getItem("token"); // Retrieve token from localStorage
         if (!token) {
           console.error("No token found");
@@ -33,7 +26,6 @@ const TotalCredit = () => {
           },
         });
 
->>>>>>> c361654 (updated feature Number Game and other thing)
         const data = await response.json();
 
         if (data.responseCode === 200) {

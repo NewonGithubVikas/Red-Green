@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from "react";
-=======
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
->>>>>>> c361654 (updated feature Number Game and other thing)
 
 const RecentWithdrawRequest = () => {
   const [latestTransactions, setLatestTransactions] = useState([]);
@@ -13,38 +9,6 @@ const RecentWithdrawRequest = () => {
   const [error, setError] = useState(null);
   const [accountDetails, setAccountDetails] = useState(null);
   const [showModal, setShowModal] = useState(false);
-<<<<<<< HEAD
-
-  const fetchLatestTransactions = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("https://back-5es4.onrender.com/admin/check-withdraw-request");
-      const data = await response.json();
-      console.log("API Response:", data);
-
-      if (data.transactions && Array.isArray(data.transactions)) {
-        setLatestTransactions(data.transactions);
-      } else {
-        setLatestTransactions([]);
-      }
-    } catch (err) {
-      setError("Failed to fetch transactions");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchLatestTransactions();
-  }, []);
-
-  const handleApprove = async (amount, userId) => {
-    try {
-      const response = await fetch("https://back-5es4.onrender.com/admin/status-withdraw-change", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-=======
   const navigate = useNavigate();
 
   const getToken = () => localStorage.getItem("token");
@@ -98,7 +62,6 @@ const RecentWithdrawRequest = () => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
->>>>>>> c361654 (updated feature Number Game and other thing)
         },
         body: JSON.stringify({ id: userId, amount: amount }),
       });
@@ -107,26 +70,11 @@ const RecentWithdrawRequest = () => {
       alert(result.message);
 
       if (response.ok) {
-<<<<<<< HEAD
-        fetchLatestTransactions();
-=======
         fetchLatestTransactions(); // Refresh transactions after approval
->>>>>>> c361654 (updated feature Number Game and other thing)
       }
     } catch (error) {
       alert("Failed to update status");
     }
-<<<<<<< HEAD
-  };
-
-  const fetchAccountDetails = async (userId) => {
-    try {
-      const res = await fetch("https://back-5es4.onrender.com/account/account-details", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId }),
-      });
-=======
   }, [navigate, fetchLatestTransactions]);
 
   // Fetch account details
@@ -153,16 +101,10 @@ const RecentWithdrawRequest = () => {
         throw new Error("Failed to fetch account details");
       }
 
->>>>>>> c361654 (updated feature Number Game and other thing)
       const data = await res.json();
       setAccountDetails(data.data[0]);
       setShowModal(true);
     } catch (error) {
-<<<<<<< HEAD
-      alert("Failed to fetch account details");
-    }
-  };
-=======
       alert(error.message);
     }
   }, [navigate]);
@@ -170,7 +112,6 @@ const RecentWithdrawRequest = () => {
   useEffect(() => {
     fetchLatestTransactions();
   }, [fetchLatestTransactions]);
->>>>>>> c361654 (updated feature Number Game and other thing)
 
   return (
     <div className="container mt-4">

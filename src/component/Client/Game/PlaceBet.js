@@ -1,10 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../../Context/AuthContext";
-<<<<<<< HEAD
-
-=======
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
->>>>>>> c361654 (updated feature Number Game and other thing)
 export default function PlaceBet({ isOpen, onClose, selectedColor, onConfirm }) {
   const [betAmount, setBetAmount] = useState(""); // To hold the entered amount
   const [multiplier, setMultiplier] = useState(1); // To track the selected multiplier
@@ -28,14 +24,6 @@ export default function PlaceBet({ isOpen, onClose, selectedColor, onConfirm }) 
 
   // Place bet function
   const placeBet = async () => {
-<<<<<<< HEAD
-    try {
-      // Sending the POST request
-      const response = await fetch("https://back-5es4.onrender.com/game/bet", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-=======
     const token = localStorage.getItem("token"); // Retrieve token from localStorage
 
     try {
@@ -45,7 +33,6 @@ export default function PlaceBet({ isOpen, onClose, selectedColor, onConfirm }) 
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`, // Add token to the request header
->>>>>>> c361654 (updated feature Number Game and other thing)
         },
         body: JSON.stringify({
           user_id: userId,
@@ -64,12 +51,7 @@ export default function PlaceBet({ isOpen, onClose, selectedColor, onConfirm }) 
 
         onConfirm(betAmount, multiplier); // Notify the parent about the successful bet
         onClose(); // Close the modal after placing the bet
-<<<<<<< HEAD
-      } 
-      else if (result.responseCode === 400) {
-=======
       } else if (result.responseCode === 400) {
->>>>>>> c361654 (updated feature Number Game and other thing)
         // Handle insufficient balance
         alert("Insufficient balance in wallet. Please try again with a lower amount."); // Show alert
       } else {

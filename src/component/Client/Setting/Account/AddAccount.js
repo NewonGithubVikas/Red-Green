@@ -1,15 +1,9 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
 import { AuthContext } from "../../../../Context/AuthContext";
-<<<<<<< HEAD
-
-const AddAccount = () => {
-    const { userId } = useContext(AuthContext);
-=======
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const AddAccount = () => {
     const { userId } = useContext(AuthContext);
     const token = localStorage.getItem("token"); // Get token from localStorage
->>>>>>> c361654 (updated feature Number Game and other thing)
     const [accounts, setAccounts] = useState([]);
     const [show, setShow] = useState(false);
     const [dataExists, setDataExists] = useState(null);
@@ -26,14 +20,6 @@ const AddAccount = () => {
 
     // ✅ Fetch Accounts
     const fetchAccounts = useCallback(async () => {
-<<<<<<< HEAD
-        if (!userId) return;
-
-        try {
-            const res = await fetch("https://back-5es4.onrender.com/account/account-details", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-=======
         if (!userId || !token) return;
 
         try {
@@ -43,7 +29,6 @@ const AddAccount = () => {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}` // 🔹 Include token in header
                 },
->>>>>>> c361654 (updated feature Number Game and other thing)
                 body: JSON.stringify({ userId })
             });
 
@@ -58,11 +43,7 @@ const AddAccount = () => {
             console.error("Error fetching accounts", error);
             setDataExists(false);
         }
-<<<<<<< HEAD
-    }, [userId]);
-=======
     }, [userId, token]);
->>>>>>> c361654 (updated feature Number Game and other thing)
 
     useEffect(() => {
         if (userId) {
@@ -81,27 +62,18 @@ const AddAccount = () => {
         e.preventDefault();
         
         const endpoint = editMode
-<<<<<<< HEAD
-            ? `https://back-5es4.onrender.com/account/update/${selectedAccountId}`
-            : "https://back-5es4.onrender.com/account/add-account";
-=======
             ? `${API_BASE_URL}/account/update/${selectedAccountId}`
             : `${API_BASE_URL}/account/add-account`;
->>>>>>> c361654 (updated feature Number Game and other thing)
 
         const method = editMode ? "PUT" : "POST";
 
         try {
             const res = await fetch(endpoint, {
                 method,
-<<<<<<< HEAD
-                headers: { "Content-Type": "application/json" },
-=======
                 headers: { 
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}` // 🔹 Include token in header
                 },
->>>>>>> c361654 (updated feature Number Game and other thing)
                 body: JSON.stringify(formData),
             });
 
@@ -127,14 +99,10 @@ const AddAccount = () => {
         if (!window.confirm("Are you sure you want to delete this account?")) return;
 
         try {
-<<<<<<< HEAD
-            const res = await fetch(`https://back-5es4.onrender.com/account/delete/${id}`, { method: "DELETE" });
-=======
             const res = await fetch(`${API_BASE_URL}/account/delete/${id}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${token}` } // 🔹 Include token in header
             });
->>>>>>> c361654 (updated feature Number Game and other thing)
 
             if (res.ok) {
                 fetchAccounts();

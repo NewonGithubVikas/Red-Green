@@ -1,11 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext'; // Import AuthContext
-<<<<<<< HEAD
-
-=======
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
->>>>>>> c361654 (updated feature Number Game and other thing)
 export default function Signin() {
   const [mobile, setMobile] = useState('');
   const [pass, setPass] = useState('');
@@ -23,11 +19,7 @@ export default function Signin() {
     e.preventDefault();
 
     try {
-<<<<<<< HEAD
-      const response = await fetch("https://back-5es4.onrender.com/user/signin", {
-=======
       const response = await fetch(`${API_BASE_URL}/user/signin`, {
->>>>>>> c361654 (updated feature Number Game and other thing)
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -94,10 +86,7 @@ export default function Signin() {
               </form>
               <div className="text-center mt-3">
                 <p>Don't have an account? <Link to="/register">Sign Up</Link></p>
-<<<<<<< HEAD
-=======
                 <p><Link to="">Forgot Password?</Link></p>
->>>>>>> c361654 (updated feature Number Game and other thing)
               </div>
             </div>
           </div>
@@ -105,8 +94,4 @@ export default function Signin() {
       </div>
     </div>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> c361654 (updated feature Number Game and other thing)

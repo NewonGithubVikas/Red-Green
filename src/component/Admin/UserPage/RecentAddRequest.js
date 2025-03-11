@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
-
-=======
 import { useNavigate } from "react-router-dom";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
->>>>>>> c361654 (updated feature Number Game and other thing)
 const RecentAddRequest = () => {
   const [latestTransactions, setLatestTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-<<<<<<< HEAD
-=======
   const navigate = useNavigate();
->>>>>>> c361654 (updated feature Number Game and other thing)
 
   useEffect(() => {
     const fetchLatestTransactions = async () => {
       setLoading(true);
-<<<<<<< HEAD
-      try {
-        const response = await fetch("https://back-5es4.onrender.com/admin/check-add-request");
-=======
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -41,7 +30,6 @@ const RecentAddRequest = () => {
           throw new Error("Failed to fetch transactions");
         }
 
->>>>>>> c361654 (updated feature Number Game and other thing)
         const data = await response.json();
         console.log("API Response:", data);
 
@@ -53,33 +41,13 @@ const RecentAddRequest = () => {
           setLatestTransactions([]);
         }
       } catch (err) {
-<<<<<<< HEAD
-        setError("Failed to fetch transactions");
-=======
         setError(err.message || "Failed to fetch transactions");
->>>>>>> c361654 (updated feature Number Game and other thing)
       } finally {
         setLoading(false);
       }
     };
 
     fetchLatestTransactions();
-<<<<<<< HEAD
-  }, []);
-
-  const handleAddMoney = async (userId, amount) => {
-    try {
-      const response = await fetch("https://back-5es4.onrender.com/wallet/addbalance", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ balance: amount, id: userId }),
-      });
-      const result = await response.json();
-      if (response.ok) {
-        alert(`Successfully added $${amount} to user ${userId}.`);
-=======
   }, [navigate]);
 
   const handleAddMoney = async (userId, amount) => {
@@ -108,7 +76,6 @@ const RecentAddRequest = () => {
         setLatestTransactions((prevTransactions) =>
           prevTransactions.filter((transaction) => transaction.userId !== userId)
         );
->>>>>>> c361654 (updated feature Number Game and other thing)
       } else {
         alert(result.message || "Failed to add money.");
       }

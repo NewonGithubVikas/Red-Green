@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import { Link } from "react-router-dom";
-import DashboardChart from "./DashboardChart";
-import { FaBars } from "react-icons/fa";
-
-function AdDashboard() {
-=======
 import React, { useEffect, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext"; // Import Auth Context
@@ -87,7 +79,6 @@ function AdDashboard() {
     navigate("/login"); // Redirect to login page
   };
 
->>>>>>> c361654 (updated feature Number Game and other thing)
   return (
     <div className="container-fluid">
       <div className="row">
@@ -108,11 +99,7 @@ function AdDashboard() {
           </div>
         </nav>
 
-<<<<<<< HEAD
-        {/* Sidebar (Collapsible on Mobile, Always Visible on Large Screens) */}
-=======
         {/* Sidebar */}
->>>>>>> c361654 (updated feature Number Game and other thing)
         <div className="col-md-3 col-lg-2 bg-dark text-white min-vh-100">
           <div className="collapse d-md-block" id="sidebarMenu">
             <h4 className="text-center py-3">Admin Panel</h4>
@@ -138,25 +125,16 @@ function AdDashboard() {
               <li className="nav-item">
                 <Link className="nav-link text-white" to="#">Game Outcome</Link>
               </li>
-<<<<<<< HEAD
-=======
               {/* Logout Button */}
               <li className="nav-item">
                 <button className="nav-link text-white btn btn-danger w-100 mt-3" onClick={handleLogout}>
                   Logout
                 </button>
               </li>
->>>>>>> c361654 (updated feature Number Game and other thing)
             </ul>
           </div>
         </div>
 
-<<<<<<< HEAD
-        {/* Main Content Area */}
-        <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          
-          <DashboardChart />
-=======
         {/* Main Content */}
         <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
           <div className="container mt-4">
@@ -170,7 +148,6 @@ function AdDashboard() {
               </div>
             </div>
           </div>
->>>>>>> c361654 (updated feature Number Game and other thing)
         </main>
       </div>
     </div>

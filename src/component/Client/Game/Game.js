@@ -2,12 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PlaceBidModal from "./PlaceBet";
 import LastGameHistory from "./LastGameHistory";
-<<<<<<< HEAD
-
-=======
 import Number from "../../NumberGame/Number";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
->>>>>>> c361654 (updated feature Number Game and other thing)
 export default function Game() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -19,10 +15,6 @@ export default function Game() {
 
   useEffect(() => {
     async function fetchTime() {
-<<<<<<< HEAD
-      try {
-        const response = await fetch("https://back-5es4.onrender.com/game/timer");
-=======
       if (!token) return; // Ensure the token is present before making a request
 
       try {
@@ -34,18 +26,14 @@ export default function Game() {
           },
         });
 
->>>>>>> c361654 (updated feature Number Game and other thing)
         if (response.ok) {
           const data = await response.json();
           if (data && data.remainTime) {
             setCurrTime(data.remainTime);
           }
-<<<<<<< HEAD
-=======
         } else if (response.status === 401) {
           localStorage.removeItem("token");
           navigate("/signin"); // Redirect to login if token is invalid
->>>>>>> c361654 (updated feature Number Game and other thing)
         } else {
           console.error("Failed to fetch the time from the server.");
         }
@@ -55,16 +43,9 @@ export default function Game() {
     }
 
     fetchTime();
-<<<<<<< HEAD
-
-    const interval = setInterval(fetchTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
-=======
     const interval = setInterval(fetchTime, 1000);
     return () => clearInterval(interval);
   }, [token, navigate]);
->>>>>>> c361654 (updated feature Number Game and other thing)
 
   useEffect(() => {
     if (!token) {
@@ -90,11 +71,6 @@ export default function Game() {
     }
   };
 
-<<<<<<< HEAD
-  const placeBid = () => {
-    // Logic to place a bid
-    setIsModalOpen(false);
-=======
   const placeBid = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/game/place-bid`, {
@@ -114,7 +90,6 @@ export default function Game() {
     } catch (error) {
       console.error("Error placing bid:", error);
     }
->>>>>>> c361654 (updated feature Number Game and other thing)
   };
 
   if (!token) return null;
@@ -147,17 +122,10 @@ export default function Game() {
             Red
           </button>
         </div>
-<<<<<<< HEAD
-
-        <div className="history-section mt-4">
-          <h3 className="text-center text-secondary mb-3">Last Game History</h3>
-          <LastGameHistory />
-=======
         <Number currTime={currTime}/>
         <div className="history-section mt-4">
           <h3 className="text-center text-secondary mb-3">Last Game History</h3>
           <LastGameHistory currTime={currTime}/>
->>>>>>> c361654 (updated feature Number Game and other thing)
         </div>
       </div>
 
