@@ -5,7 +5,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 export default function Registration() {
   const [formData, setFormData] = useState({
     mobile: "",
-    password: "",
+    pass: "",
     confirmPassword: "",
   });
 
@@ -25,7 +25,7 @@ export default function Registration() {
   // Form submission logic
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { mobile, password, confirmPassword } = formData;
+    const { mobile, pass, confirmPassword } = formData;
 
     // Mobile number validation (exactly 10 digits)
     const mobileRegex = /^[0-9]{10}$/;
@@ -36,14 +36,14 @@ export default function Registration() {
     }
 
     // Password validation (minimum 8 characters)
-    if (password.length < 8) {
+    if (pass.length < 8) {
       setError("Password must be at least 8 characters long.");
       setSuccess("");
       return;
     }
 
     // Confirm password validation
-    if (password !== confirmPassword) {
+    if (pass !== confirmPassword) {
       setError("Passwords do not match.");
       setSuccess("");
       return;
@@ -55,7 +55,7 @@ export default function Registration() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ mobile, password }),
+        body: JSON.stringify({ mobile, pass }),
       });
 
       if (response.ok) {
@@ -68,7 +68,7 @@ export default function Registration() {
         navigate("/otp-confirmation", { state: { mobile } });
 
         // Reset form data
-        setFormData({ mobile: "", password: "", confirmPassword: "" });
+        setFormData({ mobile: "", pass: "", confirmPassword: "" });
       } else {
         const result = await response.json();
         setError(result.message || "Registration failed");
@@ -109,16 +109,16 @@ export default function Registration() {
 
                 {/* Password Input */}
                 <div className="mb-3">
-                  <label htmlFor="password" className="form-label">
+                  <label htmlFor="pass" className="form-label">
                     Password:
                   </label>
                   <input
                     type="password"
                     className="form-control"
-                    id="password"
-                    name="password"
+                    id="pass"
+                    name="pass"
                     placeholder="Enter password (min 8 characters)"
-                    value={formData.password}
+                    value={formData.pass}
                     onChange={handleChange}
                     required
                   />
