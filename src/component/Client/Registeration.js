@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export default function Registration() {
   const [formData, setFormData] = useState({
     mobile: "",
@@ -71,8 +72,15 @@ export default function Registration() {
         setFormData({ mobile: "", pass: "", confirmPassword: "" });
       } else {
         const result = await response.json();
-        setError(result.message || "Registration failed");
-        setSuccess("");
+
+        // Check for specific error message (Mobile number already exists)
+        if (response.status === 404 && result.responseMessage === "Mobile number already exists") {
+          setError("This mobile number is already registered.");
+          setSuccess("");
+        } else {
+          setError(result.message || "Registration failed");
+          setSuccess("");
+        }
       }
     } catch (error) {
       setError("An error occurred. Please try again.");
