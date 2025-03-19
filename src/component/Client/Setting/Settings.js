@@ -15,6 +15,10 @@ const Settings = () => {
           <FaWallet className="me-3 text-success" size={24} /> 
           <span className="fs-5">Wallet</span>
         </Link>
+          <Link to="/bet-history" className="list-group-item list-group-item-action d-flex align-items-center py-3">
+          <FaGift className="me-3 text-warning" size={24} /> 
+          <span className="fs-5">Bet History</span>
+        </Link>
         <Link to="/refer-earn" className="list-group-item list-group-item-action d-flex align-items-center py-3">
           <FaGift className="me-3 text-warning" size={24} /> 
           <span className="fs-5">Refer & Earn</span>
