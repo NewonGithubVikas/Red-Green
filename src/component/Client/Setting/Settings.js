@@ -1,5 +1,5 @@
 import React from "react";
-import { FaUser, FaWallet, FaGift, FaHeadset, FaLock } from "react-icons/fa";
+import { FaUser, FaWallet, FaGift, FaHeadset, FaLock, FaMoneyCheckAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 // , FaFileAlt , FaSignOutAlt
 const Settings = () => {
