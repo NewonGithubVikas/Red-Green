@@ -28,7 +28,7 @@ import ReferEarn from './component/Client/Setting/SettingComponent/ReferEarn';
 import CustomerSupport from './component/Client/Setting/SettingComponent/CustomerSupport';
 
 import UpdatePassword from './component/Client/Setting/SettingComponent/UpdatePassword';
-
+import BetHistory from './component/Client/common/BetHistory';
 function App() {
   return (
     <AuthProvider>
@@ -44,6 +44,7 @@ function App() {
             <Route path="/add" element={<Add />} />
             <Route path="/withdraw" element={<Withdraw />} />
             <Route path="/history" element={<History />} />
+            <Route path="/bet-history" element={<BetHistory/>} />
             <Route path="/game" element={<Game />} />
             <Route path="/pp" element={<PrivacyPolicy />} />
             <Route path="/settings" element={<Settings/>} />
