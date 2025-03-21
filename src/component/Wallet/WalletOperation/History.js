@@ -33,11 +33,11 @@ const History = () => {
         console.log(`All ${show} transactions:`, result);
 
         if (response.ok) {
-          // Check if there are no transactions
-          if (result.transactions && result.transactions.length === 0) {
-            setTransactions([]);  // Set empty array if no transactions
-          } else {
+          // Check if transactions is an array and not undefined or null
+          if (Array.isArray(result.transactions) && result.transactions.length > 0) {
             setTransactions(result.transactions);
+          } else {
+            setTransactions([]);  // Set empty array if no transactions
           }
         } else {
           console.error("Error fetching history:", result.responseMessage);
@@ -59,13 +59,13 @@ const History = () => {
       <div className="row justify-content-center">
         <div className="col-md-8">
           <div className="card shadow">
-            <div className="card-header bg-danger text-white text-center">
+            <div className="card-header bg-dark text-white text-center">
               <h4>{show} History</h4>
             </div>
             <div className="card-body">
               {transactions.length > 0 ? (
                 <table className="table table-striped">
-                  <thead className="thead-success">
+                  <thead className="thead-dark">
                     <tr>
                       <th>#</th>
                       <th>Amount (USD)</th>
