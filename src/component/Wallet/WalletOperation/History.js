@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthContext";
+
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const History = () => {
   const [transactions, setTransactions] = useState([]);
   const { userId, token } = useContext(AuthContext); // Get token from AuthContext
@@ -31,7 +33,12 @@ const History = () => {
         console.log(`All ${show} transactions:`, result);
 
         if (response.ok) {
-          setTransactions(result.transactions);
+          // Check if there are no transactions
+          if (result.transactions && result.transactions.length === 0) {
+            setTransactions([]);  // Set empty array if no transactions
+          } else {
+            setTransactions(result.transactions);
+          }
         } else {
           console.error("Error fetching history:", result.responseMessage);
           alert(result.responseMessage || `Failed to fetch ${show} transaction history.`);
@@ -52,13 +59,13 @@ const History = () => {
       <div className="row justify-content-center">
         <div className="col-md-8">
           <div className="card shadow">
-            <div className="card-header bg-dark text-white text-center">
+            <div className="card-header bg-danger text-white text-center">
               <h4>{show} History</h4>
             </div>
             <div className="card-body">
               {transactions.length > 0 ? (
                 <table className="table table-striped">
-                  <thead className="thead-dark">
+                  <thead className="thead-success">
                     <tr>
                       <th>#</th>
                       <th>Amount (USD)</th>
@@ -76,7 +83,7 @@ const History = () => {
                   </tbody>
                 </table>
               ) : (
-                <p className="text-center">No transactions available.</p>
+                <p className="text-center">No {show} transactions available.</p>
               )}
             </div>
           </div>
