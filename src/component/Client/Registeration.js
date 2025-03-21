@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default function Registration() {
@@ -9,7 +10,7 @@ export default function Registration() {
     pass: "",
     confirmPassword: "",
   });
-
+  
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
@@ -28,25 +29,36 @@ export default function Registration() {
     e.preventDefault();
     const { mobile, pass, confirmPassword } = formData;
 
+    // Reset previous error and success messages
+    setError("");
+    setSuccess("");
+
     // Mobile number validation (exactly 10 digits)
+    if (!mobile) {
+      setError("Mobile number is required.");
+      return;
+    }
+
     const mobileRegex = /^[0-9]{10}$/;
     if (!mobileRegex.test(mobile)) {
       setError("Mobile number must be exactly 10 digits.");
-      setSuccess("");
       return;
     }
 
     // Password validation (minimum 8 characters)
+    if (!pass) {
+      setError("Password is required.");
+      return;
+    }
+
     if (pass.length < 8) {
       setError("Password must be at least 8 characters long.");
-      setSuccess("");
       return;
     }
 
     // Confirm password validation
-    if (pass !== confirmPassword) {
+    if (confirmPassword !== pass) {
       setError("Passwords do not match.");
-      setSuccess("");
       return;
     }
 
@@ -61,30 +73,22 @@ export default function Registration() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log(result);
-        setSuccess("Registration successful!");
-        setError("");
 
-        // Redirect to OTP confirmation page with the mobile number passed in state
-        navigate("/otp-confirmation", { state: { mobile } });
+        if (result.responseCode === 404) {
+          setError("This mobile number is already registered.");
+        } else {
+          setSuccess("Registration successful!");
+          navigate("/otp-confirmation", { state: { mobile } });
 
-        // Reset form data
-        setFormData({ mobile: "", pass: "", confirmPassword: "" });
+          // Reset form data after successful registration
+          setFormData({ mobile: "", pass: "", confirmPassword: "" });
+        }
       } else {
         const result = await response.json();
-
-        // Check for specific error message (Mobile number already exists)
-        if (response.status === 404 && result.responseMessage === "Mobile number already exists") {
-          setError("This mobile number is already registered.");
-          setSuccess("");
-        } else {
-          setError(result.message || "Registration failed");
-          setSuccess("");
-        }
+        setError(result.responseMessage || "Registration failed");
       }
     } catch (error) {
       setError("An error occurred. Please try again.");
-      setSuccess("");
     }
   };
 
@@ -93,7 +97,7 @@ export default function Registration() {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card shadow-lg">
-            <div className="card-header bg-primary text-white text-center">
+            <div className="card-header bg-danger text-white text-center">
               <h4>Register</h4>
             </div>
             <div className="card-body">
@@ -155,7 +159,7 @@ export default function Registration() {
 
                 {/* Submit Button */}
                 <div className="d-grid">
-                  <button type="submit" className="btn btn-primary">
+                  <button type="submit" className="btn btn-success">
                     Register
                   </button>
                 </div>
@@ -164,7 +168,7 @@ export default function Registration() {
             <div className="card-footer text-center">
               <p>
                 Already have an account?{" "}
-                <Link to="/signin" className="text-primary">
+                <Link to="/signin" className="text-success">
                   Sign In
                 </Link>
               </p>
