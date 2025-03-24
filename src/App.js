@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Registeration from './component/Client/Registeration';
 import Otp from './component/Client/common/Otp';
+import ResendOtp from './component/Client/common/ResendOtp';
 import Signin from './component/Client/Signin';
 import Amount from './component/Wallet/Amount';
 import Game from './component/Client/Game/Game';
@@ -29,6 +30,8 @@ import CustomerSupport from './component/Client/Setting/SettingComponent/Custome
 
 import UpdatePassword from './component/Client/Setting/SettingComponent/UpdatePassword';
 import BetHistory from './component/Client/common/BetHistory';
+import GameMode from './component/Admin/AdminLogin/GameMode';
+import ErrorPage from './component/Client/common/ErrorPage';
 function App() {
   return (
     <AuthProvider>
@@ -40,19 +43,21 @@ function App() {
             <Route path="/register" element={<Registeration />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/otp-confirmation" element={<Otp />} />
+            <Route path="/resend-otp" element={<ResendOtp/>} />
             <Route path="/user-wallet" element={<Amount />} />
             <Route path="/add" element={<Add />} />
             <Route path="/withdraw" element={<Withdraw />} />
             <Route path="/history" element={<History />} />
             <Route path="/bet-history" element={<BetHistory/>} />
             <Route path="/game" element={<Game />} />
+            
             <Route path="/pp" element={<PrivacyPolicy />} />
             <Route path="/settings" element={<Settings/>} />
             <Route path="/add-account" element={<AddAccount/>} />
             {/* <Route path="/watch-account" element={<AccountDetails/>} /> */}
             <Route path="/refer-earn" element={<ReferEarn/>} />
             <Route path="/customer-support" element={<CustomerSupport/>} />
-          
+            
             <Route path="/update-password" element={<UpdatePassword/>} />
           </Route>
 
@@ -66,8 +71,10 @@ function App() {
             <Route path="/withdraw-fund-request" element={<RecentWithdrawRequest/>} />
             <Route path="/total-credit" element={<TotalCredit/>} />
             <Route path="/withdraw-command" element={<WithdrawCommand/>} />
-            
+            <Route path="/mode" element={<GameMode/>} />
           </Route>
+          
+          <Route path = "/error" element = {<ErrorPage/>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

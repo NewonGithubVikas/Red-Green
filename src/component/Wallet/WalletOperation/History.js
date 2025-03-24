@@ -1,9 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthContext";
-
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
 const History = () => {
   const [transactions, setTransactions] = useState([]);
   const { userId, token } = useContext(AuthContext); // Get token from AuthContext
@@ -33,12 +31,7 @@ const History = () => {
         console.log(`All ${show} transactions:`, result);
 
         if (response.ok) {
-          // Check if transactions is an array and not undefined or null
-          if (Array.isArray(result.transactions) && result.transactions.length > 0) {
-            setTransactions(result.transactions);
-          } else {
-            setTransactions([]);  // Set empty array if no transactions
-          }
+          setTransactions(result.transactions);
         } else {
           console.error("Error fetching history:", result.responseMessage);
           alert(result.responseMessage || `Failed to fetch ${show} transaction history.`);
@@ -83,7 +76,7 @@ const History = () => {
                   </tbody>
                 </table>
               ) : (
-                <p className="text-center">No {show} transactions available.</p>
+                <p className="text-center">No transactions available.</p>
               )}
             </div>
           </div>

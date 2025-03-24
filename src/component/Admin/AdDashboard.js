@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Context/AuthContext"; // Import Auth Context
+import { AuthContext } from "../../Context/AuthContext";
 import { FaBars } from "react-icons/fa";
 import { Bar } from "react-chartjs-2";
 import {
@@ -20,18 +20,20 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 function AdDashboard() {
   const { isLoggedIn, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  
   const [dashboardData, setDashboardData] = useState({
     totalCredit: 0,
     totalWithdraw: 0,
   });
 
+  const [loading, setLoading] = useState(true); // ✅ Added loading state
+
   useEffect(() => {
     if (!isLoggedIn && !localStorage.getItem("token")) {
       navigate("/login");
+      return;
     }
-  }, [isLoggedIn, navigate]);
 
-  useEffect(() => {
     const fetchDashboardData = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -54,6 +56,10 @@ function AdDashboard() {
           logout();
           navigate("/login");
           return;
+        } else if (response.status === 403) {
+          console.error("Forbidden: User is not authorized for this route");
+          navigate("/error");
+          return;
         }
 
         const data = await response.json();
@@ -61,32 +67,21 @@ function AdDashboard() {
           totalCredit: data.totalCredit || 0,
           totalWithdraw: data.totalWithdraw || 0,
         });
+
       } catch (error) {
         console.error("Error fetching dashboard data", error);
+      } finally {
+        setLoading(false); // ✅ Ensure loading is set to false when request completes
       }
     };
 
     fetchDashboardData();
   }, [logout, navigate]);
 
-  // Bar Chart Data
-  const barData = {
-    labels: ["Credit (Today)", "Withdraw (Today)"],
-    datasets: [
-      {
-        label: "Amount in Rupees",
-        data: [dashboardData.totalCredit, dashboardData.totalWithdraw],
-        backgroundColor: ["#28a745", "#dc3545"],
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  // Logout function
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
+  // ✅ Prevent admin page from rendering until data is loaded
+  if (loading) {
+    return <div className="text-center mt-5">Loading...</div>;
+  }
 
   return (
     <div className="container-fluid">
@@ -131,10 +126,10 @@ function AdDashboard() {
               <Link className="nav-link text-white" to="/withdraw-command">Total Withdraw</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-white" to="#">Game Outcome</Link>
+              <Link className="nav-link text-white" to="/mode">Game Outcome</Link>
             </li>
             <li className="nav-item">
-              <button className="nav-link text-white btn btn-danger w-100 mt-3" onClick={handleLogout}>
+              <button className="nav-link text-white btn btn-danger w-100 mt-3" onClick={() => { logout(); navigate("/login"); }}>
                 Logout
               </button>
             </li>
@@ -164,7 +159,17 @@ function AdDashboard() {
                 <div className="card p-3">
                   <h5 className="mb-3">Today's Credit & Withdraw</h5>
                   <div className="chart-container">
-                    <Bar data={barData} options={{ responsive: true, maintainAspectRatio: false }} />
+                    <Bar data={{
+                      labels: ["Credit (Today)", "Withdraw (Today)"],
+                      datasets: [
+                        {
+                          label: "Amount in Rupees",
+                          data: [dashboardData.totalCredit, dashboardData.totalWithdraw],
+                          backgroundColor: ["#28a745", "#dc3545"],
+                          borderWidth: 1,
+                        },
+                      ],
+                    }} options={{ responsive: true, maintainAspectRatio: false }} />
                   </div>
                 </div>
               </div>
@@ -173,7 +178,7 @@ function AdDashboard() {
         </main>
       </div>
 
-      {/* Bootstrap-Only Responsive CSS */}
+      {/* Responsive CSS */}
       <style>
         {`
           .chart-container {

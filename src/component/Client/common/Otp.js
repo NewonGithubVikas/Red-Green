@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
+
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export default function Otp() {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
   const location = useLocation();
-  const { mobile } = location.state || {}; // Retrieve the mobile number from state
+  const { email, mobile } = location.state || {}; // Retrieve both email and mobile
 
   const handleChange = (e) => {
     setOtp(e.target.value);
@@ -27,30 +29,36 @@ export default function Otp() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ otp, mobile }), // Include the mobile number in the request
+        body: JSON.stringify({ otp, email, mobile }), // Send both email and mobile
       });
 
-      if (!response.ok) {
-        throw new Error("Invalid OTP. Please try again.");
-      }
-
       const result = await response.json();
-      console.log(result);
-      setSuccessMessage("OTP verified successfully!");
-      setError("");
-      setOtp(""); // Reset the OTP field
+
+      if (result.responseCode === 200) {
+        setSuccessMessage("✅ OTP verified successfully!");
+        setError("");
+        setOtp(""); // Reset the OTP field
+      } else if (result.responseCode === 400) {
+        setError(result.responseMessage);
+        setSuccessMessage("");
+      } else if (result.responseCode === 404) {
+        setError("User does not exist. Please register again.");
+        setSuccessMessage("");
+      } else {
+        throw new Error("Something went wrong. Please try again.");
+      }
     } catch (error) {
       setError(error.message);
       setSuccessMessage("");
     }
   };
 
-  if (!mobile) {
+  if (!email || !mobile) {
     return (
       <div className="container d-flex justify-content-center align-items-center vh-100">
         <div className="card text-center shadow-lg p-4 border-danger" style={{ maxWidth: "400px" }}>
           <h2 className="text-danger">Error</h2>
-          <p className="text-muted">Mobile number not provided.</p>
+          <p className="text-muted">Email or mobile number not provided.</p>
           <p>Please go back and register again.</p>
         </div>
       </div>
@@ -63,15 +71,14 @@ export default function Otp() {
         <div className="card-body">
           <h2 className="text-center text-primary mb-3">OTP Confirmation</h2>
           <p className="text-center text-muted">
-            We've sent a 6-digit OTP to <strong>{mobile}</strong>.
+            We've sent a 6-digit OTP to <strong>{email}</strong> and <strong>{mobile}</strong>.
           </p>
           <form onSubmit={handleSubmit} className="mt-3">
             {error && <div className="alert alert-danger text-center">{error}</div>}
             {successMessage && <div className="alert alert-success text-center">{successMessage}</div>}
+
             <div className="mb-3">
-              <label htmlFor="otp" className="form-label">
-                Enter OTP:
-              </label>
+              <label htmlFor="otp" className="form-label">Enter OTP:</label>
               <input
                 type="text"
                 className="form-control text-center fs-4 fw-bold"
@@ -88,12 +95,21 @@ export default function Otp() {
                 }}
               />
             </div>
+
             <div className="text-center">
-              <button type="submit" className="btn btn-primary w-100 fw-bold">
-                Confirm OTP
-              </button>
+              <button type="submit" className="btn btn-primary w-100 fw-bold">Confirm OTP</button>
             </div>
           </form>
+
+          {/* Resend OTP Link */}
+          <div className="text-center mt-3">
+            <p className="text-muted">
+              Didn't receive the OTP?{" "}
+              <Link to="/resend-otp" className="btn btn-link text-primary fw-bold">
+                Resend OTP
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

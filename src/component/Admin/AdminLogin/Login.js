@@ -13,7 +13,7 @@ export default function AdminLogin() {
   // Redirect admin if already logged in
   useEffect(() => {
     if (isAuthenticated || localStorage.getItem("token")) {
-      navigate("/admin/dashboard"); // Redirect to admin dashboard
+      navigate("/admin"); // Redirect to admin dashboard
     }
   }, [isAuthenticated, navigate]);
 

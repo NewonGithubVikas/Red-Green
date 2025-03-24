@@ -6,6 +6,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default function Registration() {
   const [formData, setFormData] = useState({
+    email: "",
     mobile: "",
     pass: "",
     confirmPassword: "",
@@ -27,11 +28,23 @@ export default function Registration() {
   // Form submission logic
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { mobile, pass, confirmPassword } = formData;
+    const { email, mobile, pass, confirmPassword } = formData;
 
     // Reset previous error and success messages
     setError("");
     setSuccess("");
+
+    // Email validation
+    if (!email) {
+      setError("Email is required.");
+      return;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Enter a valid email address.");
+      return;
+    }
 
     // Mobile number validation (exactly 10 digits)
     if (!mobile) {
@@ -68,20 +81,20 @@ export default function Registration() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ mobile, pass }),
+        body: JSON.stringify({ email, mobile, pass }),
       });
 
       if (response.ok) {
         const result = await response.json();
 
         if (result.responseCode === 404) {
-          setError("This mobile number is already registered.");
+          setError("This email or mobile number is already registered.");
         } else {
           setSuccess("Registration successful!");
-          navigate("/otp-confirmation", { state: { mobile } });
+          navigate("/otp-confirmation", { state: {email, mobile } });
 
           // Reset form data after successful registration
-          setFormData({ mobile: "", pass: "", confirmPassword: "" });
+          setFormData({ email: "", mobile: "", pass: "", confirmPassword: "" });
         }
       } else {
         const result = await response.json();
@@ -102,11 +115,24 @@ export default function Registration() {
             </div>
             <div className="card-body">
               <form onSubmit={handleSubmit}>
+                {/* Email Input */}
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">Email:</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="Enter email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                
                 {/* Mobile Input */}
                 <div className="mb-3">
-                  <label htmlFor="mobile" className="form-label">
-                    Mobile:
-                  </label>
+                  <label htmlFor="mobile" className="form-label">Mobile:</label>
                   <input
                     type="text"
                     className="form-control"
@@ -121,9 +147,7 @@ export default function Registration() {
 
                 {/* Password Input */}
                 <div className="mb-3">
-                  <label htmlFor="pass" className="form-label">
-                    Password:
-                  </label>
+                  <label htmlFor="pass" className="form-label">Password:</label>
                   <input
                     type="password"
                     className="form-control"
@@ -138,9 +162,7 @@ export default function Registration() {
 
                 {/* Confirm Password Input */}
                 <div className="mb-3">
-                  <label htmlFor="confirmPassword" className="form-label">
-                    Confirm Password:
-                  </label>
+                  <label htmlFor="confirmPassword" className="form-label">Confirm Password:</label>
                   <input
                     type="password"
                     className="form-control"
@@ -159,18 +181,14 @@ export default function Registration() {
 
                 {/* Submit Button */}
                 <div className="d-grid">
-                  <button type="submit" className="btn btn-success">
-                    Register
-                  </button>
+                  <button type="submit" className="btn btn-success">Register</button>
                 </div>
               </form>
             </div>
             <div className="card-footer text-center">
               <p>
-                Already have an account?{" "}
-                <Link to="/signin" className="text-success">
-                  Sign In
-                </Link>
+                Already have an account? {" "}
+                <Link to="/signin" className="text-success">Sign In</Link>
               </p>
             </div>
           </div>
