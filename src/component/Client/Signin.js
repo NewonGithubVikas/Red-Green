@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext'; // Import AuthContext
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export default function Signin() {
   const [mobile, setMobile] = useState('');
   const [pass, setPass] = useState('');
@@ -29,6 +30,11 @@ export default function Signin() {
 
       const result = await response.json();
 
+      if (result.responseCode === 403) {
+        alert("Your account is blocked. Please contact support.");
+        return; // Stop execution here
+      }
+
       if (response.status === 200 && result.token) {
         localStorage.setItem("token", result.token); // Store token in localStorage
         login(result.token); // Update AuthContext
@@ -36,7 +42,7 @@ export default function Signin() {
         navigate('/'); // Redirect to the home page
       } else {
         console.error('Login failed:', result);
-        alert(result.message || 'Login failed. Please check your credentials.');
+        alert(result.responseMessage || 'Login failed. Please check your credentials.');
       }
     } catch (error) {
       console.error('An error occurred:', error);
