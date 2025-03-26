@@ -1,5 +1,5 @@
 import React,{useEffect} from "react";
-import { FaUser, FaWallet, FaGift, FaHeadset, FaLock, FaMoneyCheckAlt } from "react-icons/fa";
+import {FaIdCard , FaUser, FaWallet, FaGift, FaHeadset, FaLock, FaMoneyCheckAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 // , FaFileAlt , FaSignOutAlt
 const Settings = () => {
@@ -10,6 +10,10 @@ const Settings = () => {
     <div className="container-fluid d-flex flex-column align-items-center vh-100 bg-light">
       {/* <h2 className="text-center fw-bold mt-3">Settings</h2> */}
       <div className="list-group mt-4 w-100 px-3" style={{ maxWidth: "500px" }}>
+      <Link to="/profile" className="list-group-item list-group-item-action d-flex align-items-center py-3">
+          <FaIdCard   className="me-3 text-primary" size={24} /> 
+          <span className="fs-5">User Profile</span>
+        </Link>
         <Link to="/bet-history" className="list-group-item list-group-item-action d-flex align-items-center py-3">
           <FaMoneyCheckAlt className="me-3 text-primary" size={24} /> 
           <span className="fs-5">Bet History</span>
