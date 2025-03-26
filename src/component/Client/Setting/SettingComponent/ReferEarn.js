@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { FaCopy, FaShareAlt } from "react-icons/fa";
 
 const ReferEarn = () => {
@@ -11,7 +11,9 @@ const ReferEarn = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000); // Reset after 2 sec
   };
-
+   useEffect(()=>{
+      document.title = "Refer-Earn"
+    },[]);
   // Function to share referral code
   const shareReferral = () => {
     if (navigator.share) {

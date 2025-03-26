@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { FaEnvelope, FaPhone, FaPaperPlane } from "react-icons/fa";
 
 const CustomerSupport = () => {
@@ -11,7 +11,9 @@ const CustomerSupport = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  useEffect(() => {
+      document.title = "customer support"; // Change tab title here
+    }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Your message has been submitted. Our support team will contact you soon!");

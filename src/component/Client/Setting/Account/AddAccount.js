@@ -17,7 +17,9 @@ const AddAccount = () => {
         branch: "",
         accountHolderName: ""
     });
-
+    useEffect(() => {
+        document.title = "add account"; // Change tab title here
+      }, []);
     // ✅ Fetch Accounts
     const fetchAccounts = useCallback(async () => {
         if (!userId || !token) return;

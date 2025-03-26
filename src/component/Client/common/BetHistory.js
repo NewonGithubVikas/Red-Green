@@ -9,7 +9,9 @@ const BetHistory = () => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
+   useEffect(()=>{
+      document.title = "Bet-History"
+    },[]);
   useEffect(() => {
     // Redirect to login if token is missing
     if (!token) {

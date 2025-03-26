@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -10,7 +10,9 @@ export default function Otp() {
 
   const location = useLocation();
   const { email, mobile } = location.state || {}; // Retrieve both email and mobile
-
+ useEffect(()=>{
+    document.title = "Otp"
+  },[]);
   const handleChange = (e) => {
     setOtp(e.target.value);
   };

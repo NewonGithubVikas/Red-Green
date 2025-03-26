@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -12,10 +12,14 @@ export default function Registration() {
     confirmPassword: "",
   });
   
+  
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+      document.title = "Registeration"; // Change tab title here
+    }, []);
   // Handle input field changes
   const handleChange = (e) => {
     const { name, value } = e.target;

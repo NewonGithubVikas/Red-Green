@@ -13,6 +13,7 @@ const GameMode = () => {
 
   useEffect(() => {
     fetchGameMode();
+    document.title ="Game-Mode"
   }, []);
 
   // Fetch the current game mode

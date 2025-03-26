@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect} from "react";
 import { AuthContext } from "../../../Context/AuthContext";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 export default function PlaceBet({ isOpen, onClose, selectedColor, onConfirm }) {
@@ -6,7 +6,9 @@ export default function PlaceBet({ isOpen, onClose, selectedColor, onConfirm }) 
   const [multiplier, setMultiplier] = useState(1); // To track the selected multiplier
   const [errorMessage, setErrorMessage] = useState(""); // To manage error messages
   const { userId } = useContext(AuthContext);
-
+   useEffect(()=>{
+      document.title = "Bet-Place"
+    },[]);
   if (!isOpen) return null; // Do not render the modal if not open
 
   // Dynamically set the background color of the modal header

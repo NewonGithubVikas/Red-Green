@@ -12,7 +12,9 @@ export default function Game() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState(null);
-
+   useEffect(()=>{
+      document.title = "game"
+    },[]);
   useEffect(() => {
     async function fetchTime() {
       if (!token) return; // Ensure the token is present before making a request

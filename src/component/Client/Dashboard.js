@@ -1,8 +1,11 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Dashbord() {
   const navigate = useNavigate();
+  useEffect(() => {
+      document.title = "Home"; // Change tab title here
+    }, []);
   const handleNavigate = ()=>{
     navigate('game');
   }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const AddFundsForm = () => {
     const [balance, setBalance] = useState('');
@@ -6,6 +6,9 @@ const AddFundsForm = () => {
     const [transactionType, setTransactionType] = useState('add');
     const [userId, setUserId] = useState('');
 
+     useEffect(()=>{
+        document.title = "Add-Fund"
+      },[]);
     const handleTransaction = async (e) => {
         e.preventDefault();
         if (!userId) {

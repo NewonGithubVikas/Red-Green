@@ -10,6 +10,9 @@ export default function AdminLogin() {
   const { login, isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
+   useEffect(()=>{
+      document.title = "admin-login"
+    },[]);
   // Redirect admin if already logged in
   useEffect(() => {
     if (isAuthenticated || localStorage.getItem("token")) {

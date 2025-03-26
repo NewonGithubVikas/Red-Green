@@ -6,6 +6,9 @@ const TotalCredit = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+   useEffect(()=>{
+      document.title = "Total-Credit"
+    },[]);
   // Fetch total credit history from API
   useEffect(() => {
     const fetchTransactions = async () => {

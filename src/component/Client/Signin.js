@@ -9,8 +9,12 @@ export default function Signin() {
   const { login, isAuthenticated } = useContext(AuthContext); // Get authentication state
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title = "Signin"; // Change tab title here
+  }, []);
   // Check localStorage to ensure redirection in new tabs
   useEffect(() => {
+
     if (isAuthenticated || localStorage.getItem("token")) {
       navigate('/'); // Redirect to home if already logged in
     }
@@ -92,7 +96,7 @@ export default function Signin() {
               </form>
               <div className="text-center mt-3">
                 <p>Don't have an account? <Link to="/register">Sign Up</Link></p>
-                <p><Link to="">Forgot Password?</Link></p>
+                <p><Link to="/forget-password">Forgot Password?</Link></p>
               </div>
             </div>
           </div>

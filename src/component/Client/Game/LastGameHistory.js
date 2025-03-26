@@ -8,7 +8,9 @@ const LastGameHistory = ({ currTime }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const itemsPerPage = 5; // Number of transactions per page
-
+   useEffect(()=>{
+      document.title = "Game-History"
+    },[]);
   const fetchLastGameHistory = async () => {
     const token = localStorage.getItem("token"); // Get token from local storage
     setIsLoading(true);

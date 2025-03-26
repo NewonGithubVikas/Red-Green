@@ -32,6 +32,8 @@ import UpdatePassword from './component/Client/Setting/SettingComponent/UpdatePa
 import BetHistory from './component/Client/common/BetHistory';
 import GameMode from './component/Admin/AdminLogin/GameMode';
 import ErrorPage from './component/Client/common/ErrorPage';
+import ForgotPassword from './component/Client/Setting/SettingComponent/ForgotPassword';
+import ResetPassword from './component/Client/Setting/SettingComponent/ResetPassword';
 function App() {
   return (
     <AuthProvider>
@@ -59,6 +61,8 @@ function App() {
             <Route path="/customer-support" element={<CustomerSupport/>} />
             
             <Route path="/update-password" element={<UpdatePassword/>} />
+            <Route path  ="/forget-password" element={<ForgotPassword/>}/>
+            <Route path  ="/reset-password" element={<ResetPassword/>}/>
           </Route>
 
           {/* Admin Routes without Navbar */}

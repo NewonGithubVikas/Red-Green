@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import { AuthContext } from '../../../../Context/AuthContext';
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const UpdatePassword = () => {
@@ -8,7 +8,9 @@ const UpdatePassword = () => {
   const [message, setMessage] = useState('');
   const { userId } = useContext(AuthContext);
   const token = localStorage.getItem("token"); // ✅ Get token from localStorage
-
+   useEffect(()=>{
+      document.title = "update-password"
+    },[]);
   const handleUpdatePassword = async () => {
     if (newPassword !== confirmPassword) {
       setMessage('New passwords do not match');

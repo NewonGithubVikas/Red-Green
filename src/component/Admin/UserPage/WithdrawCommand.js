@@ -8,6 +8,9 @@ const WithdrawCommand = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+   useEffect(()=>{
+      document.title = "Withdraw-Commond"
+    },[]);
   // Fetch total credit history from API
   useEffect(() => {
     const fetchTransactions = async () => {

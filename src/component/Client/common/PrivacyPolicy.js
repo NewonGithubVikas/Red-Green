@@ -1,6 +1,9 @@
-import React from "react";
+import React,{useEffect} from "react";
 
 const PrivacyPolicy = () => {
+   useEffect(()=>{
+      document.title = "Privacy-Policy"
+    },[]);
   return (
     <div className="container my-5">
       <div className="card shadow-lg border-0 rounded-4 p-4">

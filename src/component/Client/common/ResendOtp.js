@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -7,6 +7,9 @@ export default function ResendOtp() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
 
+   useEffect(()=>{
+      document.title = "Resend-Otp"
+    },[]);
   // Handle input change
   const handleChange = (e) => {
     setEmail(e.target.value);

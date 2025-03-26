@@ -1,8 +1,11 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { FaUser, FaWallet, FaGift, FaHeadset, FaLock, FaMoneyCheckAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 // , FaFileAlt , FaSignOutAlt
 const Settings = () => {
+   useEffect(()=>{
+      document.title = "setting"
+    },[]);
   return (
     <div className="container-fluid d-flex flex-column align-items-center vh-100 bg-light">
       {/* <h2 className="text-center fw-bold mt-3">Settings</h2> */}

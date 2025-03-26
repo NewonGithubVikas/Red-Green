@@ -28,6 +28,9 @@ function AdDashboard() {
 
   const [loading, setLoading] = useState(true); // ✅ Added loading state
 
+   useEffect(()=>{
+      document.title = "admin-dashboard"
+    },[]);
   useEffect(() => {
     if (!isLoggedIn && !localStorage.getItem("token")) {
       navigate("/login");

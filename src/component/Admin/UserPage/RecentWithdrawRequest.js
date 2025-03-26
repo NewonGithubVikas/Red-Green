@@ -12,7 +12,9 @@ const RecentWithdrawRequest = () => {
   const navigate = useNavigate();
 
   const getToken = () => localStorage.getItem("token");
-
+   useEffect(()=>{
+      document.title = "Withdraw-Request"
+    },[]);
   // Fetch latest withdraw requests
   const fetchLatestTransactions = useCallback(async () => {
     setLoading(true);

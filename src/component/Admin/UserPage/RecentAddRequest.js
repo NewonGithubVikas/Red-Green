@@ -6,7 +6,9 @@ const RecentAddRequest = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
+   useEffect(()=>{
+      document.title = "Add-Request"
+    },[]);
   useEffect(() => {
     const fetchLatestTransactions = async () => {
       setLoading(true);
