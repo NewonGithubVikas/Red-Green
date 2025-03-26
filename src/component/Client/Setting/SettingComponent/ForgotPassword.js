@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -7,9 +7,11 @@ function ForgotPassword() {
   const [mobile, setMobile] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  useEffect(()=>{
-    document.title = "forgot password"
-  },[]);
+
+  useEffect(() => {
+    document.title = "Forgot Password";
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -31,11 +33,28 @@ function ForgotPassword() {
       });
 
       const result = await response.json();
-      console.log("response message from backend",result);
+      console.log("Response message from backend:", result);
+
       if (response.status === 200) {
         setMessage(`✅ Password reset link has been sent to ${email}.`);
       } else {
-        setMessage(result.responseMessage || "❌ Failed to process request.");
+        // Handle error responses that provide specific messages for email or mobile
+        if (result.responseMessage) {
+          setMessage(result.responseMessage);
+        } else {
+          setMessage("❌ Failed to process request.");
+        }
+        
+        // Add more specific handling for cases when email or mobile does not exist
+        if (result.responseCode === 400) {
+          if (result.errors?.email === "Not found") {
+            setMessage("❌ Email does not exist.");
+          } else if (result.errors?.mobile === "Not found") {
+            setMessage("❌ Mobile number does not exist.");
+          } else {
+            setMessage("❌ Email or Mobile number does not exist.");
+          }
+        }
       }
     } catch (error) {
       console.error("Error:", error);
