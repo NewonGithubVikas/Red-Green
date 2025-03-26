@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthContext";
+import { FaUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
@@ -56,9 +57,6 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/user-wallet">Wallet</Link>
             </li>
-            {/* <li className="nav-item">
-              <Link className="nav-link" to="/pp">Privacy and Policy</Link>
-            </li> */}
             {loggedIn && (
               <li className="nav-item">
                 <Link className="nav-link" to="/settings">Settings</Link>
@@ -67,16 +65,32 @@ const Navbar = () => {
           </ul>
           <ul className="navbar-nav">
             {loggedIn ? (
-              <li className="nav-item">
-                <button className="btn btn-danger" onClick={handleLogout}>
-                  Logout
+              <li className="nav-item dropdown">
+                <button
+                  className="nav-link dropdown-toggle d-flex align-items-center bg-transparent border-0"
+                  id="navbarDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style={{ cursor: "pointer" }}
+                >
+                  <FaUserCircle size={24} className="me-2 text-primary" />
+                  Profile
                 </button>
+                <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li>
+                    <Link className="dropdown-item" to="/profile">View Profile</Link>
+                  </li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li>
+                    <button className="dropdown-item text-danger" onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </li>
+                </ul>
               </li>
             ) : (
               <li className="nav-item">
-                <Link className="btn btn-primary" to="/signin">
-                  Login
-                </Link>
+                <Link className="btn btn-primary" to="/signin">Login</Link>
               </li>
             )}
           </ul>
