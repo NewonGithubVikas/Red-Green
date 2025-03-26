@@ -31,6 +31,7 @@ function ForgotPassword() {
       });
 
       const result = await response.json();
+      console.log("response message from backend",result);
       if (response.status === 200) {
         setMessage(`✅ Password reset link has been sent to ${email}.`);
       } else {
