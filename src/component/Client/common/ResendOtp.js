@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from "react";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -6,12 +6,10 @@ export default function ResendOtp() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
-  const [otp, setOtp] = useState("");  // To store latest OTP (you can adjust this logic depending on your actual OTP flow)
 
-  useEffect(() => {
-    document.title = "Resend-Otp";
-  }, []);
-
+   useEffect(()=>{
+      document.title = "Resend-Otp"
+    },[]);
   // Handle input change
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -42,7 +40,7 @@ export default function ResendOtp() {
     setMessage({ text: "", type: "" });
 
     try {
-      const response = await fetch(`${API_BASE_URL}/user/resendotp`, {
+      const response = await fetch(${API_BASE_URL}/user/resendotp, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -51,22 +49,12 @@ export default function ResendOtp() {
       const result = await response.json();
 
       if (response.ok) {
-        setOtp(result.latestOtp || "N/A");  // Assuming the response includes the latest OTP
-        setMessage({
-          text: "OTP has been resent to your email. Please check your inbox (and the spam folder).",
-          type: "success",
-        });
+        setMessage({ text: "OTP has been resent to your email, Please Also check spam folder of gmail", type: "success" });
       } else {
-        setMessage({
-          text: result.responseMessage || "Failed to resend OTP",
-          type: "error",
-        });
+        setMessage({ text: result.responseMessage || "Failed to resend OTP", type: "error" });
       }
     } catch (error) {
-      setMessage({
-        text: "Something went wrong. Please try again.",
-        type: "error",
-      });
+      setMessage({ text: "Something went wrong. Please try again.", type: "error" });
     }
 
     setLoading(false);
@@ -101,19 +89,8 @@ export default function ResendOtp() {
 
                 {/* Message Display */}
                 {message.text && (
-                  <p
-                    className={`text-center ${
-                      message.type === "success" ? "text-success" : "text-danger"
-                    }`}
-                  >
+                  <p className={text-center ${message.type === "success" ? "text-success" : "text-danger"}}>
                     {message.text}
-                  </p>
-                )}
-
-                {/* Latest OTP Display */}
-                {otp && (
-                  <p className="text-center text-info">
-                    <strong>Your latest OTP for verification:</strong> {otp}
                   </p>
                 )}
 
