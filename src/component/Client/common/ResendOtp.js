@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -7,9 +7,10 @@ export default function ResendOtp() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
 
-   useEffect(()=>{
-      document.title = "Resend-Otp"
-    },[]);
+  useEffect(() => {
+    document.title = "Resend-Otp";
+  }, []);
+
   // Handle input change
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -40,7 +41,7 @@ export default function ResendOtp() {
     setMessage({ text: "", type: "" });
 
     try {
-      const response = await fetch(${API_BASE_URL}/user/resendotp, {
+      const response = await fetch(`${API_BASE_URL}/user/resendotp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -49,7 +50,10 @@ export default function ResendOtp() {
       const result = await response.json();
 
       if (response.ok) {
-        setMessage({ text: "OTP has been resent to your email Please Also check spam folder of gmail", type: "success" });
+        setMessage({
+          text: "OTP has been resent to your email. Please also check the spam folder if you don't see it in your inbox.",
+          type: "success",
+        });
       } else {
         setMessage({ text: result.responseMessage || "Failed to resend OTP", type: "error" });
       }
@@ -89,7 +93,9 @@ export default function ResendOtp() {
 
                 {/* Message Display */}
                 {message.text && (
-                  <p className={text-center ${message.type === "success" ? "text-success" : "text-danger"}}>
+                  <p
+                    className={`text-center ${message.type === "success" ? "text-success" : "text-danger"}`}
+                  >
                     {message.text}
                   </p>
                 )}
