@@ -49,7 +49,7 @@ export default function ResendOtp() {
       const result = await response.json();
 
       if (response.ok) {
-        setMessage({ text: "OTP has been resent to your email, Please Also check spam folder of gmail", type: "success" });
+        setMessage({ text: "OTP has been resent to your email Please Also check spam folder of gmail", type: "success" });
       } else {
         setMessage({ text: result.responseMessage || "Failed to resend OTP", type: "error" });
       }
