@@ -21,7 +21,7 @@ function ForgotPassword() {
     }
 
     setLoading(true);
-    setMessage("");
+    setMessage(""); // Clear previous message before making a new request
 
     try {
       const response = await fetch(`${API_BASE_URL}/user/forgot-password`, {
@@ -36,25 +36,13 @@ function ForgotPassword() {
       console.log("Response message from backend:", result);
 
       if (response.status === 200) {
-        setMessage(`✅ Password reset link has been sent to ${email}.`);
+        // If the response is successful, show the message dynamically
+        setMessage(result.responseMessage || "✅ Password reset link has been sent.");
+      } else if (response.status === 400) {
+        // Handle 400 error specifically
+        setMessage(result.responseMessage || "❌ Failed to process request.");
       } else {
-        // Handle error responses that provide specific messages for email or mobile
-        if (result.responseMessage) {
-          setMessage(result.responseMessage);
-        } else {
-          setMessage("❌ Failed to process request.");
-        }
-        
-        // Add more specific handling for cases when email or mobile does not exist
-        if (result.responseCode === 400) {
-          if (result.errors?.email === "Not found") {
-            setMessage("❌ Email does not exist.");
-          } else if (result.errors?.mobile === "Not found") {
-            setMessage("❌ Mobile number does not exist.");
-          } else {
-            setMessage("❌ Email or Mobile number does not exist.");
-          }
-        }
+        setMessage("❌ Failed to process request.");
       }
     } catch (error) {
       console.error("Error:", error);
