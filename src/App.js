@@ -34,6 +34,7 @@ import GameMode from './component/Admin/AdminLogin/GameMode';
 import ErrorPage from './component/Client/common/ErrorPage';
 import ForgotPassword from './component/Client/Setting/SettingComponent/ForgotPassword';
 import ResetPassword from './component/Client/Setting/SettingComponent/ResetPassword';
+import Profile from './component/Client/common/Profile';
 function App() {
   return (
     <AuthProvider>
@@ -52,7 +53,7 @@ function App() {
             <Route path="/history" element={<History />} />
             <Route path="/bet-history" element={<BetHistory/>} />
             <Route path="/game" element={<Game />} />
-            
+            <Route path="/profile" element={<Profile/>} />
             <Route path="/pp" element={<PrivacyPolicy />} />
             <Route path="/settings" element={<Settings/>} />
             <Route path="/add-account" element={<AddAccount/>} />
