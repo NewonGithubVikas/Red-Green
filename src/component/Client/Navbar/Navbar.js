@@ -92,7 +92,7 @@ const Navbar = () => {
                   aria-expanded="false"
                   style={{ cursor: "pointer" }}
                 >
-                  <FaUserCircle size={24} className="me-2 text-primary" />
+                  <FaUserCircle size={24} className="me-2 text-danger" />
                   Profile
                 </button>
                 <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
