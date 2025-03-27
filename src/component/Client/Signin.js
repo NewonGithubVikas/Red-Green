@@ -39,7 +39,7 @@ export default function Signin() {
       if (result.responseCode === 403) {
         const message = "Your account is blocked. Please contact support.";
         setErrorMessage(message);
-        alert(message);
+        // alert(message);
         return; // Stop execution here
       }
 
@@ -51,13 +51,13 @@ export default function Signin() {
       } else {
         const message = result.responseMessage || 'Login failed. Please check your credentials.';
         setErrorMessage(message);
-        alert(message);
+        // alert(message);
       }
     } catch (error) {
       console.error('An error occurred:', error);
       const message = 'An error occurred. Please try again later.';
       setErrorMessage(message);
-      alert(message);
+      // alert(message);
     }
   };
 
