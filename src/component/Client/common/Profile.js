@@ -58,7 +58,7 @@ const Profile = () => {
             <div>Loading...</div>  // Show loading text or spinner while data is being fetched
           ) : (
             <>
-              <FaUserCircle className="text-primary mb-3" size={60} />
+              <FaUserCircle className="text-success mb-3" size={60} />
               <h2 className="card-title mb-3">User Profile</h2>
               <ul className="list-group list-group-flush text-start">
                 <li className="list-group-item"><strong>User ID:</strong> {user.user_id}</li>
