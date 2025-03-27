@@ -51,12 +51,14 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/">Home</Link>
             </li>
+            {loggedIn && (
             <li className="nav-item">
               <Link className="nav-link" to="/game">Game</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/user-wallet">Wallet</Link>
             </li>
+             )}
              <li className="nav-item">
               <Link className="nav-link" to="/customer-support">Help</Link>
             </li>
