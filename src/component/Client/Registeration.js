@@ -189,8 +189,8 @@ export default function Registration() {
                 </div>
               </form>
             </div>
-            <div className="card-footer text-center bg-danger">
-              <p className="text-white">
+            <div className="card-footer text-center bg-light">
+              <p className="text-dark">
                 Already have an account? {" "}
                 <Link to="/signin" className="text-success fw-bold">Sign In</Link>
               </p>
