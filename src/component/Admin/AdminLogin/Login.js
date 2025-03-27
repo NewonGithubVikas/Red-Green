@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link  } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthContext";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -51,7 +51,7 @@ export default function AdminLogin() {
   return (
     <div className="d-flex align-items-center justify-content-center vh-100 bg-light">
       <div className="card shadow-lg p-4 rounded" style={{ width: "400px" }}>
-        <div className="card-header bg-dark text-white text-center">
+        <div className="card-header bg-success text-white text-center">
           <h4>Admin Login</h4>
         </div>
         <div className="card-body">
@@ -90,7 +90,7 @@ export default function AdminLogin() {
               />
             </div>
             <div className="d-grid">
-              <button type="submit" className="btn btn-dark">
+              <button type="submit" className="btn btn-danger">
                 Log In
               </button>
             </div>
@@ -98,9 +98,9 @@ export default function AdminLogin() {
         </div>
         <div className="text-center mt-3">
           <small>
-            <a href="/admin/forgot-password" className="text-decoration-none">
+            <Link to="/forgot-password" className="text-decoration-none">
               Forgot Password?
-            </a>
+            </Link>
           </small>
         </div>
       </div>
