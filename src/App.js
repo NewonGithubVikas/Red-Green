@@ -42,6 +42,7 @@ function App() {
         <Routes>
           {/* Routes with Navbar */}
           <Route element={<ClientOutlet/>}>
+             
             <Route path="/" element={<Dashbord />} />
             <Route path="/register" element={<Registeration />} />
             <Route path="/signin" element={<Signin />} />
@@ -78,7 +79,7 @@ function App() {
             <Route path="/withdraw-command" element={<WithdrawCommand/>} />
             <Route path="/mode" element={<GameMode/>} />
           </Route>
-          
+          <Route path="*" element={<ErrorPage />} />
           <Route path = "/error" element = {<ErrorPage/>}/>
         </Routes>
       </BrowserRouter>
