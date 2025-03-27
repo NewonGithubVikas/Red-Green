@@ -113,7 +113,7 @@ export default function Registration() {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <div className="card shadow-lg border-danger">
+          <div className="card shadow">
             <div className="card-header bg-danger text-white text-center">
               <h4>Register</h4>
             </div>
