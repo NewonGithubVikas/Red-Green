@@ -66,7 +66,7 @@ export default function Signin() {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card shadow">
-            <div className="card-header bg-dark text-white text-center">
+            <div className="card-header bg-danger text-white text-center">
               <h4>Sign In</h4>
             </div>
             <div className="card-body">
@@ -99,7 +99,7 @@ export default function Signin() {
                 </div>
                 {errorMessage && <span className="text-danger">{errorMessage}</span>}
                 <div className="d-grid mt-2">
-                  <button type="submit" className="btn btn-dark">Log In</button>
+                  <button type="submit" className="btn btn-success">Log In</button>
                 </div>
               </form>
               <div className="text-center mt-3">
