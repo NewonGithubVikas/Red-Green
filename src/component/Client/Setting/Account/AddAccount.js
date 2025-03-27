@@ -134,7 +134,7 @@ const AddAccount = () => {
 
             {/* ✅ Show "Add Account" button only if no account exists */}
             {!dataExists && (
-                <button className="btn btn-primary" onClick={() => setShow(true)}>Add Account</button>
+                <button className="btn btn-success" onClick={() => setShow(true)}>Add Account</button>
             )}
 
             {/* ✅ Form for Adding or Editing Account */}
