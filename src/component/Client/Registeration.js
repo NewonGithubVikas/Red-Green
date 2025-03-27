@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -11,15 +11,15 @@ export default function Registration() {
     pass: "",
     confirmPassword: "",
   });
-  
-  
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-      document.title = "Registeration"; // Change tab title here
-    }, []);
+    document.title = "Registration"; // Change tab title
+  }, []);
+
   // Handle input field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +43,7 @@ export default function Registration() {
       setError("Email is required.");
       return;
     }
-    
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError("Enter a valid email address.");
@@ -95,7 +95,7 @@ export default function Registration() {
           setError("This email or mobile number is already registered.");
         } else {
           setSuccess("Registration successful!");
-          navigate("/otp-confirmation", { state: {email, mobile } });
+          navigate("/otp-confirmation", { state: { email, mobile } });
 
           // Reset form data after successful registration
           setFormData({ email: "", mobile: "", pass: "", confirmPassword: "" });
@@ -113,7 +113,7 @@ export default function Registration() {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <div className="card shadow-lg">
+          <div className="card shadow-lg border-danger">
             <div className="card-header bg-danger text-white text-center">
               <h4>Register</h4>
             </div>
@@ -121,10 +121,10 @@ export default function Registration() {
               <form onSubmit={handleSubmit}>
                 {/* Email Input */}
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Email:</label>
+                  <label htmlFor="email" className="form-label text-danger">Email:</label>
                   <input
                     type="email"
-                    className="form-control"
+                    className="form-control border-success"
                     id="email"
                     name="email"
                     placeholder="Enter email"
@@ -133,13 +133,13 @@ export default function Registration() {
                     required
                   />
                 </div>
-                
+
                 {/* Mobile Input */}
                 <div className="mb-3">
-                  <label htmlFor="mobile" className="form-label">Mobile:</label>
+                  <label htmlFor="mobile" className="form-label text-danger">Mobile:</label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control border-success"
                     id="mobile"
                     name="mobile"
                     placeholder="Enter mobile number"
@@ -151,10 +151,10 @@ export default function Registration() {
 
                 {/* Password Input */}
                 <div className="mb-3">
-                  <label htmlFor="pass" className="form-label">Password:</label>
+                  <label htmlFor="pass" className="form-label text-danger">Password:</label>
                   <input
                     type="password"
-                    className="form-control"
+                    className="form-control border-success"
                     id="pass"
                     name="pass"
                     placeholder="Enter password (min 8 characters)"
@@ -166,10 +166,10 @@ export default function Registration() {
 
                 {/* Confirm Password Input */}
                 <div className="mb-3">
-                  <label htmlFor="confirmPassword" className="form-label">Confirm Password:</label>
+                  <label htmlFor="confirmPassword" className="form-label text-danger">Confirm Password:</label>
                   <input
                     type="password"
-                    className="form-control"
+                    className="form-control border-success"
                     id="confirmPassword"
                     name="confirmPassword"
                     placeholder="Confirm password"
@@ -189,10 +189,10 @@ export default function Registration() {
                 </div>
               </form>
             </div>
-            <div className="card-footer text-center">
-              <p>
+            <div className="card-footer text-center bg-danger">
+              <p className="text-white">
                 Already have an account? {" "}
-                <Link to="/signin" className="text-success">Sign In</Link>
+                <Link to="/signin" className="text-success fw-bold">Sign In</Link>
               </p>
             </div>
           </div>
