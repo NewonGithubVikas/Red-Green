@@ -51,26 +51,33 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/">Home</Link>
             </li>
+
+            {/* Show Game & Wallet links only when logged in */}
             {loggedIn && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/game">Game</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/user-wallet">Wallet</Link>
+                </li>
+              </>
+            )}
+
             <li className="nav-item">
-              <Link className="nav-link" to="/game">Game</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/user-wallet">Wallet</Link>
-            </li>
-             )}
-             <li className="nav-item">
               <Link className="nav-link" to="/customer-support">Help</Link>
             </li>
-             <li className="nav-item">
+            <li className="nav-item">
               <Link className="nav-link" to="/pp">Privacy & Policy</Link>
             </li>
+
             {loggedIn && (
               <li className="nav-item">
                 <Link className="nav-link" to="/settings">Settings</Link>
               </li>
             )}
           </ul>
+
           <ul className="navbar-nav">
             {loggedIn ? (
               <li className="nav-item dropdown">
