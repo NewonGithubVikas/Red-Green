@@ -62,7 +62,7 @@ const AddFundsForm = () => {
             <div className="row justify-content-center">
                 <div className="col-md-6">
                     <div className="card shadow">
-                        <div className={`card-header text-white text-center ${transactionType === 'add' ? 'bg-primary' : 'bg-danger'}`}>
+                        <div className={`card-header text-white text-center ${transactionType === 'add' ? 'bg-success' : 'bg-danger'}`}>
                             <h4>{transactionType === 'add' ? 'Add Money to Wallet' : 'Withdraw from Wallet'}</h4>
                         </div>
                         <div className="card-body">
@@ -101,7 +101,7 @@ const AddFundsForm = () => {
                                         onChange={(e) => setBalance(e.target.value)}
                                     />
                                 </div>
-                                <button type="submit" className={`btn w-100 ${transactionType === 'add' ? 'btn-primary' : 'btn-danger'}`}>
+                                <button type="submit" className={`btn w-100 ${transactionType === 'add' ? 'btn-danger' : 'btn-success'}`}>
                                     {transactionType === 'add' ? 'Add Money' : 'Withdraw Money'}
                                 </button>
                             </form>
