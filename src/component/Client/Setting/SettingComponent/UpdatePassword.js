@@ -43,7 +43,7 @@ const UpdatePassword = () => {
     <div className="container mt-5">
       <div className="card mx-auto" style={{ maxWidth: "400px" }}>
         <div className="card-body">
-          <h5 className="card-title text-center">Update Password</h5>
+          <h5 className="card-title text-center bg-danger">Update Password</h5>
           <div className="mb-3">
             <label className="form-label">Old Password</label>
             <input
@@ -74,7 +74,7 @@ const UpdatePassword = () => {
               required
             />
           </div>
-          <button className="btn btn-primary w-100" onClick={handleUpdatePassword}>
+          <button className="btn btn-success w-100" onClick={handleUpdatePassword}>
             Update Password
           </button>
           {message && <div className="alert alert-success mt-3">{message}</div>}
