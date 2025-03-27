@@ -6,15 +6,16 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 export default function Signin() {
   const [mobile, setMobile] = useState('');
   const [pass, setPass] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); // State for error message
   const { login, isAuthenticated } = useContext(AuthContext); // Get authentication state
   const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "Signin"; // Change tab title here
   }, []);
+
   // Check localStorage to ensure redirection in new tabs
   useEffect(() => {
-
     if (isAuthenticated || localStorage.getItem("token")) {
       navigate('/'); // Redirect to home if already logged in
     }
@@ -22,6 +23,7 @@ export default function Signin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(''); // Clear previous error message
 
     try {
       const response = await fetch(`${API_BASE_URL}/user/signin`, {
@@ -35,7 +37,9 @@ export default function Signin() {
       const result = await response.json();
 
       if (result.responseCode === 403) {
-        alert("Your account is blocked. Please contact support.");
+        const message = "Your account is blocked. Please contact support.";
+        setErrorMessage(message);
+        alert(message);
         return; // Stop execution here
       }
 
@@ -45,12 +49,15 @@ export default function Signin() {
         console.log('Login successful:', result);
         navigate('/'); // Redirect to the home page
       } else {
-        console.error('Login failed:', result);
-        alert(result.responseMessage || 'Login failed. Please check your credentials.');
+        const message = result.responseMessage || 'Login failed. Please check your credentials.';
+        setErrorMessage(message);
+        alert(message);
       }
     } catch (error) {
       console.error('An error occurred:', error);
-      alert('An error occurred. Please try again later.');
+      const message = 'An error occurred. Please try again later.';
+      setErrorMessage(message);
+      alert(message);
     }
   };
 
@@ -90,7 +97,8 @@ export default function Signin() {
                     required
                   />
                 </div>
-                <div className="d-grid">
+                {errorMessage && <span className="text-danger">{errorMessage}</span>}
+                <div className="d-grid mt-2">
                   <button type="submit" className="btn btn-dark">Log In</button>
                 </div>
               </form>
