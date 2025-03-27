@@ -11,7 +11,7 @@ export default function Signin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = "Signin"; // Change tab title here
+    document.title = "Signin"; // Change tab title
   }, []);
 
   // Check localStorage to ensure redirection in new tabs
@@ -25,6 +25,16 @@ export default function Signin() {
     e.preventDefault();
     setErrorMessage(''); // Clear previous error message
 
+    // **Validation**
+    if (!/^\d{10}$/.test(mobile)) {
+      setErrorMessage("Mobile number must be exactly 10 digits.");
+      return;
+    }
+    if (pass.length < 8) {
+      setErrorMessage("Password must be at least 8 characters long.");
+      return;
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/user/signin`, {
         method: "POST",
@@ -37,27 +47,20 @@ export default function Signin() {
       const result = await response.json();
 
       if (result.responseCode === 403) {
-        const message = "Your account is blocked. Please contact support.";
-        setErrorMessage(message);
-        // alert(message);
-        return; // Stop execution here
+        setErrorMessage("Your account is blocked. Please contact support.");
+        return;
       }
 
       if (response.status === 200 && result.token) {
         localStorage.setItem("token", result.token); // Store token in localStorage
         login(result.token); // Update AuthContext
-        console.log('Login successful:', result);
-        navigate('/'); // Redirect to the home page
+        navigate('/'); // Redirect to home page
       } else {
-        const message = result.responseMessage || 'Login failed. Please check your credentials.';
-        setErrorMessage(message);
-        // alert(message);
+        setErrorMessage(result.responseMessage || "Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error('An error occurred:', error);
-      const message = 'An error occurred. Please try again later.';
-      setErrorMessage(message);
-      // alert(message);
+      setErrorMessage("An error occurred. Please try again later.");
     }
   };
 
@@ -72,12 +75,12 @@ export default function Signin() {
             <div className="card-body">
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label htmlFor="mobile" className="form-label">Mobile</label>
+                  <label htmlFor="mobile" className="form-label text-danger">Mobile</label>
                   <input
                     type="text"
                     id="mobile"
                     name="mobile"
-                    className="form-control"
+                    className="form-control border-success"
                     placeholder="Enter mobile number"
                     onChange={(e) => setMobile(e.target.value)}
                     value={mobile}
@@ -85,12 +88,12 @@ export default function Signin() {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="password" className="form-label">Password</label>
+                  <label htmlFor="password" className="form-label text-danger">Password</label>
                   <input
                     type="password"
                     id="password"
                     name="pass"
-                    className="form-control"
+                    className="form-control border-success"
                     placeholder="Enter password"
                     onChange={(e) => setPass(e.target.value)}
                     value={pass}
@@ -103,8 +106,8 @@ export default function Signin() {
                 </div>
               </form>
               <div className="text-center mt-3">
-                <p>Don't have an account? <Link to="/register">Sign Up</Link></p>
-                <p><Link to="/forget-password">Forgot Password?</Link></p>
+                <p>Don't have an account? <Link to="/register" className="text-danger">Sign Up</Link></p>
+                <p><Link to="/forget-password" className="text-danger">Forgot Password?</Link></p>
               </div>
             </div>
           </div>
