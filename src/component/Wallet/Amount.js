@@ -28,7 +28,7 @@ export default function Amount() {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`, // Added Authorization token
           },
-          body: JSON.stringify({ id: userId }),
+          // body: JSON.stringify({ id: userId }),
         });
 
         if (response.ok) {

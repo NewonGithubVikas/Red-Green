@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
+
+import CurrentBetHistory from "../common/CurrentBetHistory";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const LastGameHistory = ({ currTime }) => {
-  // console.log("Current time:", currTime);
   const [history, setHistory] = useState([]); // Complete history fetched from the API
   const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const itemsPerPage = 5; // Number of transactions per page
-   useEffect(()=>{
-      document.title = "Game-History"
-    },[]);
+  const [activeTab, setActiveTab] = useState("currentGame"); // Track which tab is active
+  const itemsPerPage = 4; // Number of transactions per page
+
+  useEffect(() => {
+    document.title = "Game-History";
+  }, []);
+
   const fetchLastGameHistory = async () => {
-    const token = localStorage.getItem("token"); // Get token from local storage
+    const token = localStorage.getItem("token");
     setIsLoading(true);
     setError(null);
 
@@ -21,7 +25,7 @@ const LastGameHistory = ({ currTime }) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Add token to the request header
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -39,27 +43,22 @@ const LastGameHistory = ({ currTime }) => {
     }
   };
 
-  // Fetch history when the component mounts
   useEffect(() => {
     fetchLastGameHistory();
   }, []);
 
-  // Re-fetch history when currTime reaches 5, with a 4-second delay
-    useEffect(() => {
-      if (currTime===5) {
-        const timer = setTimeout(() => {
-          fetchLastGameHistory();
-        }, 6000);
+  useEffect(() => {
+    if (currTime === 5) {
+      const timer = setTimeout(() => {
+        fetchLastGameHistory();
+      }, 6000);
 
-      return () => clearTimeout(timer); // Cleanup to prevent multiple calls
+      return () => clearTimeout(timer);
     }
   }, [currTime]);
 
-  // Calculate the current page's data
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = history.slice(startIndex, startIndex + itemsPerPage);
-
-  // Calculate the total number of pages
   const totalPages = Math.ceil(history.length / itemsPerPage);
 
   const handlePrevious = () => {
@@ -83,56 +82,72 @@ const LastGameHistory = ({ currTime }) => {
   }
 
   return (
-    <div className="table-responsive">
-      <table className="table table-bordered table-striped">
-        <thead className="thead-dark">
-          <tr>
-            <th>Winner Color</th>
-            <th>Winner Number</th>
-            <th>Total Bet (₹)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentItems.map((game, index) => (
-            <tr key={index}>
-              <td>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "20px",
-                    height: "20px",
-                    borderRadius: "50%",
-                    backgroundColor:
-                      game.winnerColor === "red" ? "red" : "green",
-                  }}
-                  title={game.winnerColor}
-                ></span>
-              </td>
-              <td>{game.winnerNumber || "N/A"}</td>
-              <td>₹{(game.totalAmount.toFixed(2) * 10).toLocaleString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="d-flex justify-content-between align-items-center mt-3">
+    <div className="container mt-4">
+      {/* Tab Navigation */}
+      <div className="d-flex justify-content-between mb-3">
         <button
-          className="btn btn-secondary"
-          onClick={handlePrevious}
-          disabled={currentPage === 1}
+          className={`btn ${activeTab === "currentGame" ? "btn-primary" : "btn-outline-primary"}`}
+          onClick={() => setActiveTab("currentGame")}
         >
-          Previous
+          Current Game
         </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
         <button
-          className="btn btn-secondary"
-          onClick={handleNext}
-          disabled={currentPage === totalPages}
+          className={`btn ${activeTab === "myBet" ? "btn-primary" : "btn-outline-primary"}`}
+          onClick={() => setActiveTab("myBet")}
         >
-          Next
+          My Bet
         </button>
       </div>
+
+      {/* Render Components Based on Active Tab */}
+      {activeTab === "currentGame" ? (
+        <div className="table-responsive">
+          <table className="table table-bordered table-striped">
+            <thead className="thead-dark">
+              <tr>
+                <th>Winner Color</th>
+                <th>Winner Number</th>
+                <th>Total Bet (₹)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentItems.map((game, index) => (
+                <tr key={index}>
+                  <td>
+                    <span
+                      style={{
+                        display: "inline-block",
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                        backgroundColor: game.winnerColor === "red" ? "red" : "green",
+                      }}
+                      title={game.winnerColor}
+                    ></span>
+                  </td>
+                  <td>{game.winnerNumber || "N/A"}</td>
+                  <td>₹{(game.totalAmount.toFixed(2) * 10).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Pagination Controls */}
+          <div className="d-flex justify-content-between align-items-center mt-3">
+            <button className="btn btn-secondary" onClick={handlePrevious} disabled={currentPage === 1}>
+              Previous
+            </button>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+            <button className="btn btn-secondary" onClick={handleNext} disabled={currentPage === totalPages}>
+              Next
+            </button>
+          </div>
+        </div>
+      ) : (
+        <CurrentBetHistory /> // Renders the MyBetHistory component when "My Bet" is clicked
+      )}
     </div>
   );
 };

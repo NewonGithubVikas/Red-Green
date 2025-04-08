@@ -35,9 +35,12 @@ import ErrorPage from './component/Client/common/ErrorPage';
 import ForgotPassword from './component/Client/Setting/SettingComponent/ForgotPassword';
 import ResetPassword from './component/Client/Setting/SettingComponent/ResetPassword';
 import Profile from './component/Client/common/Profile';
+import CurrentBetHistory from './component/Client/common/CurrentBetHistory';
+import { WalletProvider } from './Context/WalletContext';
 function App() {
   return (
     <AuthProvider>
+      <WalletProvider>
       <BrowserRouter>
         <Routes>
           {/* Routes with Navbar */}
@@ -53,7 +56,11 @@ function App() {
             <Route path="/withdraw" element={<Withdraw />} />
             <Route path="/history" element={<History />} />
             <Route path="/bet-history" element={<BetHistory/>} />
-            <Route path="/game" element={<Game />} />
+            <Route path="/curr-bet-hitory" element={<CurrentBetHistory/>}/>
+                       
+               <Route path="/game" element={<Game />} />
+            
+           
             <Route path="/profile" element={<Profile/>} />
             <Route path="/pp" element={<PrivacyPolicy />} />
             <Route path="/settings" element={<Settings/>} />
@@ -83,6 +90,7 @@ function App() {
           <Route path = "/error" element = {<ErrorPage/>}/>
         </Routes>
       </BrowserRouter>
+      </WalletProvider>
     </AuthProvider>
   );
 }

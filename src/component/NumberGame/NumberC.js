@@ -1,16 +1,21 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
+import { WalletContext } from "../../Context/WalletContext";
+
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const Number = ({currTime}) => {
+
+const NumberC = ({ currTime }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState(null);
   const [betAmount, setBetAmount] = useState("");
   const [multiplier, setMultiplier] = useState(1);
-  const {userId,token} = useContext(AuthContext);
-  const placebet = async()=>{
+
+  const { userId, token } = useContext(AuthContext);
+  const {  updateWalletBalance } = useContext(WalletContext); // ✅ Fixed
+
+  const placebet = async () => {
     try {
-      // alert("successfully placed bet");
-      const response = await fetch(`${API_BASE_URL}/game/number-bet`,{
+      const response = await fetch(`${API_BASE_URL}/game/number-bet`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -18,23 +23,24 @@ const Number = ({currTime}) => {
         },
         body: JSON.stringify({
           user_id: userId,
-          user_number:selectedNumber,
+          user_number: selectedNumber,
           user_amount: betAmount,
-        })      });
-      if(response.ok){
-        console.log("your response",response);
-        alert("successfully placed bet",response);
+        })
+      });
+
+      if (response.ok) {
+        alert("Successfully placed bet!");
+        updateWalletBalance(); // ✅ Refresh wallet after bet
         handleClose();
+      } else {
+        const data = await response.json();
+        alert("Error placing bet: " + data.message);
       }
-      else{
-        console.log("there is something error......");
-      }
-      console.log("your response",response);
     } catch (error) {
-      console.log("there is something error from the user side");
+      console.log("Error placing bet:", error);
     }
-    
-  }
+  };
+
   const handleClick = (num) => {
     setSelectedNumber(num);
     setIsModalOpen(true);
@@ -53,11 +59,13 @@ const Number = ({currTime}) => {
   };
 
   const colors = [
-    "btn-danger", "btn-success", "btn-primary", "btn-warning", "btn-info", "btn-secondary", "btn-dark", "btn-success", "btn-danger"
+    "btn-danger", "btn-success", "btn-primary", "btn-warning",
+    "btn-info", "btn-secondary", "btn-dark", "btn-success", "btn-danger"
   ];
 
   return (
-    <div className="container text-center mt-4">    
+    <div className="container text-center mt-2">
+     
       <div className="d-flex flex-wrap justify-content-center gap-2">
         {[...Array(9)].map((_, index) => (
           <button
@@ -65,7 +73,7 @@ const Number = ({currTime}) => {
             className={`btn ${colors[index]} btn-lg rounded-circle`}
             style={{ width: "60px", height: "60px" }}
             onClick={() => handleClick(index + 1)}
-            disabled = {currTime <= 5}
+            disabled={currTime <= 5}
           >
             {index + 1}
           </button>
@@ -116,4 +124,4 @@ const Number = ({currTime}) => {
   );
 };
 
-export default Number;
+export default NumberC;

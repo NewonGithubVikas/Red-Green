@@ -1,40 +1,39 @@
-import React, { useState, useContext, useEffect} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../../Context/AuthContext";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-export default function PlaceBet({ isOpen, onClose, selectedColor, onConfirm }) {
-  const [betAmount, setBetAmount] = useState(""); // To hold the entered amount
-  const [multiplier, setMultiplier] = useState(1); // To track the selected multiplier
-  const [errorMessage, setErrorMessage] = useState(""); // To manage error messages
-  const { userId } = useContext(AuthContext);
-   useEffect(()=>{
-      document.title = "Bet-Place"
-    },[]);
-  if (!isOpen) return null; // Do not render the modal if not open
 
-  // Dynamically set the background color of the modal header
+export default function PlaceBet({ isOpen, onClose, selectedColor, onConfirm }) {
+  const [betAmount, setBetAmount] = useState("");
+  const [multiplier, setMultiplier] = useState(1);
+  const [errorMessage, setErrorMessage] = useState("");
+  const { userId } = useContext(AuthContext);
+
+  useEffect(() => {
+    document.title = "Bet-Place";
+  }, []);
+
+  if (!isOpen) return null;
+
   const modalHeaderStyle = {
     backgroundColor: selectedColor === "Green" ? "#28a745" : "#dc3545",
     color: "white",
   };
 
-  // Handle input and multiplier changes
   const handleMultiplierClick = (value) => {
     setMultiplier(value);
-    const updatedAmount = betAmount ? parseFloat(betAmount) * value : ""; // Multiply entered amount
-    setBetAmount(updatedAmount); // Update the bet amount based on multiplier
+    const updatedAmount = betAmount ? parseFloat(betAmount) * value : "";
+    setBetAmount(updatedAmount);
   };
 
-  // Place bet function
   const placeBet = async () => {
-    const token = localStorage.getItem("token"); // Retrieve token from localStorage
+    const token = localStorage.getItem("token");
 
     try {
-      // Sending the POST request
       const response = await fetch(`${API_BASE_URL}/game/bet`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`, // Add token to the request header
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           user_id: userId,
@@ -43,25 +42,21 @@ export default function PlaceBet({ isOpen, onClose, selectedColor, onConfirm }) 
         }),
       });
 
-      // Parsing the response JSON
       const result = await response.json();
       console.log("Server response:", result);
 
-      // Handling success and error responses
       if (response.ok && result.responseCode === 200) {
         console.log("Your bet was placed successfully!", result.responseMessage);
 
-        onConfirm(betAmount, multiplier); // Notify the parent about the successful bet
-        onClose(); // Close the modal after placing the bet
+        onConfirm(betAmount, multiplier); // 🔁 Notify parent for wallet refresh
+        onClose();
       } else if (result.responseCode === 400) {
-        // Handle insufficient balance
-        alert("Insufficient balance in wallet. Please try again with a lower amount."); // Show alert
+        alert("Insufficient balance in wallet. Please try again with a lower amount.");
       } else {
         console.error("Failed to place bet. Error:", result.responseMessage || "Unknown error");
         setErrorMessage(result.responseMessage || "Failed to place the bet.");
       }
     } catch (error) {
-      // Catching network or unexpected errors
       console.error("An error occurred while placing the bet:", error.message);
       setErrorMessage("An error occurred. Please try again.");
     }
@@ -108,7 +103,6 @@ export default function PlaceBet({ isOpen, onClose, selectedColor, onConfirm }) 
                 </button>
               ))}
             </div>
-            {/* Display Error Message */}
             {errorMessage && (
               <div className="alert alert-danger mt-3 text-center" role="alert">
                 {errorMessage}
@@ -122,8 +116,8 @@ export default function PlaceBet({ isOpen, onClose, selectedColor, onConfirm }) 
             <button
               type="button"
               className="btn btn-primary"
-              onClick={placeBet} // Call placeBet when Confirm is clicked
-              disabled={!betAmount} // Disable the Confirm button if no amount is entered
+              onClick={placeBet}
+              disabled={!betAmount}
             >
               Confirm
             </button>
