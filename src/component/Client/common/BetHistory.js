@@ -40,7 +40,8 @@ const BetHistory = () => {
         console.log("Your response:", data.result);
 
         if (response.ok) {
-          setHistory(data.result || []);
+          //setHistory(data.result || []);
+          setHistory((data.result || []).reverse());
         } else {
           console.error("Error fetching bet history:", data.responseMessage);
         }
